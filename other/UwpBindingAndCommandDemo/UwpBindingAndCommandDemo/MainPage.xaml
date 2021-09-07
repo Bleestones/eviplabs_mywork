@@ -1,0 +1,23 @@
+﻿<Page
+    x:Class="UwpBindingAndCommandDemo.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UwpBindingAndCommandDemo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <local:Counter2ColorConverter x:Key="converter"/>
+    </Page.Resources>
+
+    <StackPanel MaxWidth="150" MaxHeight="150">
+        <TextBlock Text="OneWay binded TextBox:"/>
+        <TextBox Text="{x:Bind CountersModel.CounterA, Mode=OneWay}"/>
+        <TextBlock Text="TwoWay binded TextBox:"/>
+        <TextBox Text="{x:Bind CountersModel.CounterA, Mode=TwoWay}"/>
+        <Button Command="{x:Bind IncCommand}" Content="Increase!"
+            Background="{x:Bind CountersModel.CounterA, Mode=OneWay,
+            Converter={StaticResource converter}}"/>
+    </StackPanel>
+</Page>

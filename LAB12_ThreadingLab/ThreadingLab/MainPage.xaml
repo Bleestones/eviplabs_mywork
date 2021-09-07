@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="ThreadingLab.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ThreadingLab"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <StackPanel HorizontalAlignment="Stretch" Margin="0,10,0,-10" VerticalAlignment="Stretch">
+        <StackPanel Orientation="Horizontal" Spacing="5">
+            <Button Content="UI Blocker" Click="Blocker_Click" Height="50" />
+            <Button Content="Start!" Click="Start_Click" Height="50" />
+            <Button Content="Cancel" Click="Cancel_Click" Height="50" />
+        </StackPanel>
+        <TextBlock Text="Progress 1:" />
+        <ProgressBar x:Name="ProgressBar" Foreground="Red" Value="0" Maximum="100" Height="50" />
+        <TextBlock Text="Progress 2:" />
+        <ProgressBar x:Name="ProgressBar2" Foreground="Green" Value="0" Maximum="100" Height="50" />
+        <TextBlock Text="Event list:" />
+        <ListBox x:Name="EventList" Height="700" />
+    </StackPanel>
+</Page>

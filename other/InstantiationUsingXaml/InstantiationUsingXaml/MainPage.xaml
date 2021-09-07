@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="InstantiationUsingXaml.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:InstantiationUsingXaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <local:Room x:Key="RoomIB028" Name="IB028" Capacity="400"/>
+        <local:Room x:Key="RoomQBF08" Name="QBF08" Capacity="95"/>
+        <local:Room x:Key="RoomQBF09" Name="QBF09" Capacity="105"/>
+        <local:Faculty x:Key="FacultyVIK" Title="VIK">
+            <local:Faculty.Courses>
+                <local:Course Name="BAMBI" Code="VIMIA347"
+                              Room="{StaticResource RoomQBF08}" />
+                <local:Course Name="EViP" Code="VIAUBB01"
+                              Room="{StaticResource RoomIB028}">
+                    <local:Lecture Title="Bevezető">
+                        Itt a tárgy egészéről lesz szó...
+                    </local:Lecture>
+                    <local:Lecture Title="C# alapok">
+                        Itt elkezdünk foglalkozni a C# nyelv alapjaival.
+                    </local:Lecture>
+                    <local:Lecture Title="Szövegfeldolgozás és I/O">
+                        Itt egy Regex + I/O labort készítünk elő...
+                    </local:Lecture>
+                </local:Course>
+            </local:Faculty.Courses>
+        </local:Faculty>
+    </Page.Resources>
+    
+    <StackPanel>
+        <Button Content="Go!" Click="Button_Click"/>
+        <TextBox x:Name="TextBox" Height="400" AcceptsReturn="True" FontSize="28"/>
+    </StackPanel>
+</Page>

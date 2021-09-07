@@ -1,0 +1,85 @@
+﻿<Page
+    x:Class="LAB07_UWP_Basics.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LAB07_UWP_Basics"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hx="using:HelixToolkit.UWP"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:oxy="using:OxyPlot.Windows"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Page.Resources>
+        <Style TargetType="local:PlotViewWheel"/>
+        <Style TargetType="local:Viewport3DXCustom"/>
+    </Page.Resources>
+    <Grid>
+        <Pivot Name="rootPivot">
+            <PivotItem Name="_3DPivotItem" Header="3D">
+                <Grid Name="grid3D">
+                </Grid>
+            </PivotItem>
+            <PivotItem Name="polynomPivotItem" Header="Polynom">
+                <Grid Name="polynomGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1.3*" />
+                    </Grid.ColumnDefinitions>
+                    <RelativePanel Grid.Column="0">
+                        <StackPanel Name="coeffStackPanel">
+                            <ListView Header="a coefficient" Padding="6">
+                                <StackPanel>
+                                    <StackPanel Tag="a" Orientation="Horizontal">
+                                        <TextBox Text="0.01" Width="70" Height="20" Margin="0,0,8,0" KeyDown="TextBox_KeyDown" />
+                                        <Slider Value="0.01" Width="120" Minimum="-100" Maximum="100" HorizontalAlignment="Left" ValueChanged="Slider_ValueChanged" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </ListView>
+                            <ListView Header="b coefficient" Padding="6">
+                                <StackPanel>
+                                    <StackPanel Tag="b" Orientation="Horizontal">
+                                        <TextBox Text="0.01" Width="70" Height="20" Margin="0,0,8,0" KeyDown="TextBox_KeyDown" />
+                                        <Slider Value="0.01" Width="120" Minimum="-100" Maximum="100" HorizontalAlignment="Left" ValueChanged="Slider_ValueChanged" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </ListView>
+                            <ListView Header="c coefficient" Padding="6">
+                                <StackPanel>
+                                    <StackPanel Tag="c" Orientation="Horizontal">
+                                        <TextBox Text="0.01" Width="70" Height="20" Margin="0,0,8,0" KeyDown="TextBox_KeyDown" />
+                                        <Slider Value="0.01" Width="120" Minimum="-100" Maximum="100" HorizontalAlignment="Left" ValueChanged="Slider_ValueChanged" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </ListView>
+                            <Button Name="addNewCoeff" Content="Add new coefficient" Click="AddNewCoeff_Click" Margin="2" />
+                            <Button Name="removeCoeff" Content="Remove last coefficient" Click="RemoveCoeff_Click" Margin="2" />
+                        </StackPanel>
+                    </RelativePanel>
+                </Grid>
+            </PivotItem>
+            <PivotItem Name="imagePivotItem" Header="Image">
+                <GridView
+                    Name="imageListView"
+                    AllowDrop="True"
+                    CanDragItems="True"
+                    SelectionMode="Extended"
+                    DragEnter="ImageListView_DragEnter"
+                    DragLeave="ImageListView_DragLeave"
+                    DragOver="ImageListView_DragOver"
+                    Drop="ImageListView_Drop"
+                    ItemsSource="{Binding ImageItems}"
+                    DragItemsStarting="ImageListView_DragItemsStarting">
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="local:ImageItem">
+                            <StackPanel>
+                                <Image Source="{x:Bind Image}" Margin="20" Width="200" Height="200" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+            </PivotItem>
+        </Pivot>
+    </Grid>
+</Page>
