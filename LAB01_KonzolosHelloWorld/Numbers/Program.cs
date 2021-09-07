@@ -16,7 +16,6 @@ namespace Numbers
             solution = new CountPrimeNumbers(100);
             Console.WriteLine("CountPrimeNumbers: " + solution.GetSolutionText());
 
-
             solution = new SolutionDecorator(new SumOfNumbers(10));
             Console.WriteLine("Decorated SumOfNumbers: " + solution.GetSolutionText());
 
@@ -25,6 +24,9 @@ namespace Numbers
 
             solution = new SumOfPrimeNumbers(100);
             Console.WriteLine("SumOfNumbers: " + solution.GetSolutionText());
+
+            solution = new SolutionMoreLineDecorator(new SumOfPrimeNumbers(100));
+            Console.WriteLine("Decorated SumOfPrimeNumbers: " + solution.GetSolutionText());
 
             Console.ReadKey();
         }
