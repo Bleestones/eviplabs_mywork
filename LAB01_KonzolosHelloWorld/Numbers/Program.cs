@@ -23,6 +23,9 @@ namespace Numbers
             solution = new SolutionDecorator(new CountPrimeNumbers(100));
             Console.WriteLine("Decorated SumOfNumbers: " + solution.GetSolutionText());
 
+            solution = new SumOfPrimeNumbers(100);
+            Console.WriteLine("SumOfNumbers: " + solution.GetSolutionText());
+
             Console.ReadKey();
         }
     }
