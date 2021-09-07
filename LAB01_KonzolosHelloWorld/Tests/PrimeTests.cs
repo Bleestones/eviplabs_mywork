@@ -11,5 +11,12 @@ namespace Tests
             var p = new CountPrimeNumbers(100);
             Assert.Equal(25, p.CalculateSolution());
         }
+
+        [Fact]
+        public void SumOfPrimeNumbers100Returns1060()
+        {
+            var p = new SumOfPrimeNumbers(100);
+            Assert.Equal(1060, p.CalculateSolution());
+        }
     }
 }

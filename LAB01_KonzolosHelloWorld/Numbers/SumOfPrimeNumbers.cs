@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Numbers
 {
-    class SumOfPrimeNumbers : SolutionProviderBase
+    public class SumOfPrimeNumbers : SolutionProviderBase
     {
         private int upperLimit;
         public SumOfPrimeNumbers(int upperLimit)
