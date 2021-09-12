@@ -29,21 +29,10 @@ namespace TurkMite
 
                 direction = (direction + 4) % 4;
 
-                switch(direction)
-                {
-                    case 0:
-                        y--;
-                        break;
-                    case 1:
-                        x++;
-                        break;
-                    case 2:
-                        y++;
-                        break;
-                    case 3:
-                        x--;
-                        break;
-                }
+                var delta = new (int x, int y)[] { (0,-1), (1, 0) , (0, 1) , (-1, 0)};
+                x += delta[direction].x;
+                y += delta[direction].y;
+
                 if (x < 0)
                     x = 199;
                 if (x > 199)
