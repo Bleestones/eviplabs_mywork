@@ -1,4 +1,5 @@
 ﻿using OpenCvSharp;
+using System;
 
 namespace TurkMite
 {
@@ -33,14 +34,9 @@ namespace TurkMite
                 x += delta[direction].x;
                 y += delta[direction].y;
 
-                if (x < 0)
-                    x = 199;
-                if (x > 199)
-                    x = 0;
-                if (y < 0)
-                    y = 199;
-                if (y > 199)
-                    y = 0;
+                x = Math.Max(0, Math.Min(x, img.Cols - 1));
+                y = Math.Max(0, Math.Min(y, img.Rows - 1));
+
             }
             Cv2.ImShow("TurkMite", img);
             Cv2.WaitKey();
