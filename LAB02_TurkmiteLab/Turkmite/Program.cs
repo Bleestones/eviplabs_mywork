@@ -11,19 +11,21 @@ namespace TurkMite
             int x = 100;
             int y = 100;
             int direction = 0;  // 0 up, 1 right, 2 down, 3 left
+            Vec3b black = new Vec3b(0, 0, 0);
+            Vec3b white = new Vec3b(255, 255, 255);
             for(int i=0; i<13000; i++)
             {
                 Vec3b currentColor = indexer[y, x];
-                if (currentColor == new Vec3b(0,0,0))
+                if (currentColor == black)
                 {
-                    indexer[y, x] = new Vec3b(255, 255, 255);
+                    indexer[y, x] = white;
                     direction++;
                     if (direction > 3)
                         direction = 0;
                 }
                 else
                 {
-                    indexer[y, x] = new Vec3b(0, 0, 0);
+                    indexer[y, x] = black;
                     direction--;
                     if (direction < 0)
                         direction = 3;
