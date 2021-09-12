@@ -20,16 +20,15 @@ namespace TurkMite
                 {
                     indexer[y, x] = white;
                     direction++;
-                    if (direction > 3)
-                        direction = 0;
                 }
                 else
                 {
                     indexer[y, x] = black;
                     direction--;
-                    if (direction < 0)
-                        direction = 3;
                 }
+
+                direction = (direction + 4) % 4;
+
                 switch(direction)
                 {
                     case 0:
