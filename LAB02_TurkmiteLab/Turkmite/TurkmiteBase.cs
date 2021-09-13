@@ -29,7 +29,7 @@ namespace TurkMite
             PerformMove(deltaDirection);
         }
 
-        private void PerformMove(int deltaDirection)
+        protected void PerformMove(int deltaDirection)
         {
             direction += deltaDirection;
             direction = (direction + 4) % 4;
