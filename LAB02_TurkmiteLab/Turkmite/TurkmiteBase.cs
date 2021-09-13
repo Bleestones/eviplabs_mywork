@@ -7,8 +7,8 @@ namespace TurkMite
     {
         public Mat Image { get; }
         private Mat.Indexer<Vec3b> indexer;
-        private int x;
-        private int y;
+        protected int x { get; set; }
+        protected int y { get; set; }
         private readonly (int x, int y)[] delta;
         protected int direction { get; set; }  // 0 up, 1 right, 2 down, 3 left
 

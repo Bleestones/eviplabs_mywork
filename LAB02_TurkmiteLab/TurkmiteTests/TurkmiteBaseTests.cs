@@ -10,9 +10,8 @@ namespace TurkmiteTests
         [Fact]
         public void GetNextColorAndUpdateDirection_IsCalled()
         {
-            var t = new TestTurkmiteBase(new Mat(10, 10, MatType.CV_8UC3));
-            t.Step();
-            Assert.True(t.GetNextColorAndUpdateDirectionInvoked);
+            turkmite.Step();
+            Assert.True(turkmite.GetNextColorAndUpdateDirectionInvoked);
         }
 
         [Fact]
@@ -30,8 +29,8 @@ namespace TurkmiteTests
         //test class
         class TestTurkmiteBase : TurkmiteBase
         {
-            public int X { get { return this.X; } set { this.X = value; } }
-            public int Y { get { return this.Y; } set { this.Y = value; } }
+            public int X { get { return this.x; } set { this.x = value; } }
+            public int Y { get { return this.y; } set { this.y = value; } }
             public int D { get { return this.direction; } set { this.direction = value; } }
 
             public TestTurkmiteBase(Mat img) : base(img)
