@@ -3,7 +3,7 @@ using System;
 
 namespace TurkMite
 {
-    abstract class TurkmiteBase
+    public abstract class TurkmiteBase
     {
         public Mat Image { get; }
         private Mat.Indexer<Vec3b> indexer;
