@@ -11,18 +11,9 @@ namespace TurkMite
         {
         }
 
-        protected override Vec3b GetNextColorAndUpdateDirection(Vec3b currentColor)
+        protected override (Vec3b newColor, int deltaDirection) GetNextColorAndUpdateDirection(Vec3b currentColor)
         {
-            if (currentColor == black)
-            {
-                direction++;
-                return white;
-            }
-            else
-            {
-                direction--;
-                return black;
-            }
+            return (currentColor == black) ? (white, 1) : (black, -1);
         }
     }
 }
