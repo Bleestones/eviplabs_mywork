@@ -1,9 +1,5 @@
 ﻿using OpenCvSharp;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TurkMite
 {
@@ -29,16 +25,10 @@ namespace TurkMite
             for (int i = 0; i < 13000; i++)
             {
                 Vec3b currentColor = indexer[y, x];
-                if (currentColor == black)
-                {
-                    indexer[y, x] = white;
-                    direction++;
-                }
-                else
-                {
-                    indexer[y, x] = black;
-                    direction--;
-                }
+
+                (int deltaDirection, Vec3b newColor) = Step(currentColor);
+                direction += deltaDirection;
+                indexer[y, x] = newColor;
 
                 direction = (direction + 4) % 4;
 
@@ -49,6 +39,18 @@ namespace TurkMite
                 x = Math.Max(0, Math.Min(x, Image.Cols - 1));
                 y = Math.Max(0, Math.Min(y, Image.Rows - 1));
 
+            }
+        }
+
+        private (int deltaDirection, Vec3b newColor) Step(Vec3b currentColor)
+        {
+            if (currentColor == black)
+            {
+                return (1, white);
+            }
+            else
+            {
+                return (-1, black);
             }
         }
     }
