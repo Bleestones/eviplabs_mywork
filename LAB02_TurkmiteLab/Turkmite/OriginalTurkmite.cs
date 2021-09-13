@@ -11,6 +11,8 @@ namespace TurkMite
         {
         }
 
+        public override int PreferredIterationCount => 13000;
+
         protected override (Vec3b newColor, int deltaDirection) GetNextColorAndUpdateDirection(Vec3b currentColor)
         {
             return (currentColor == black) ? (white, 1) : (black, -1);

@@ -14,6 +14,7 @@ namespace TurkMite
 
         public TurkmiteBase(Mat image)
         {
+            Image = image;
             indexer = image.GetGenericIndexer<Vec3b>();
             x = Image.Cols / 2;
             y = Image.Rows / 2;
@@ -39,5 +40,6 @@ namespace TurkMite
         }
 
         protected abstract (Vec3b newColor, int deltaDirection) GetNextColorAndUpdateDirection(Vec3b currentColor);
+        public abstract int PreferredIterationCount { get; }
     }
 }
