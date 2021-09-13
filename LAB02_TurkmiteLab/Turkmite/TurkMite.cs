@@ -5,9 +5,9 @@ namespace TurkMite
 {
     class TurkMite
     {
-        private int x = 100;
-        private int y = 100;
-        private int direction = 0;  // 0 up, 1 right, 2 down, 3 left
+        private int x;
+        private int y;
+        private int direction { get; set; }  // 0 up, 1 right, 2 down, 3 left
         //this will be constant because it will never modified.
         private readonly Vec3b black = new Vec3b(0, 0, 0);
         private readonly Vec3b white = new Vec3b(255, 255, 255);
@@ -18,6 +18,9 @@ namespace TurkMite
         {
             Image = new Mat(200, 200, MatType.CV_8UC3, new Scalar(0, 0, 0));
             indexer = Image.GetGenericIndexer<Vec3b>();
+            x = Image.Cols / 2;
+            y = Image.Rows / 2;
+            direction = 0;
         }
 
         public void Run()
