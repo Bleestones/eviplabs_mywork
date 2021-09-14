@@ -43,6 +43,20 @@ namespace TurkmiteTests
             AssertMove(0, 5, 3, 0, 5);
         }
 
+        [Fact]
+        public void StepUpdatesCorrectly()
+        {
+            turkmite.X = 5;
+            turkmite.Y = 5;
+            turkmite.D = 0;
+            turkmite.Step();
+            var indexer = turkmite.Image.GetGenericIndexer<Vec3b>();
+            var newColor = indexer[5, 5];
+            Assert.Equal(turkmite.ReturnedColor, newColor);
+            // Note: mock returns "turn right".
+            AssertTurkmiteState(6, 5, 1);
+        }
+
         private void AssertMove(int startX, int startY, int direction, int finalX, int finalY)
         {
             turkmite.X = startX;
@@ -59,9 +73,11 @@ namespace TurkmiteTests
             Assert.Equal(d, turkmite.D);
         }
 
+
         //test class
         class TestTurkmiteBase : TurkmiteBase
         {
+            public readonly Vec3b ReturnedColor = new Vec3b(1, 1, 1);
             public int X { get { return this.x; } set { this.x = value; } }
             public int Y { get { return this.y; } set { this.y = value; } }
             public int D { get { return this.direction; } set { this.direction = value; } }
@@ -76,7 +92,7 @@ namespace TurkmiteTests
             {
                 // Mocked to monitor invocation
                 GetNextColorAndUpdateDirectionInvoked = true;
-                return (new Vec3b(0, 0, 0), 0);
+                return (ReturnedColor, 1);
             }
             public new void PerformMove(int deltaDirection)
             {
