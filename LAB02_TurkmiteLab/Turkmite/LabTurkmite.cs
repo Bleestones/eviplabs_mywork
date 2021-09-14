@@ -23,7 +23,7 @@ namespace TurkMite
             internalCounter = 0;
         }
 
-        private bool IsInternalCounterAndUpdateEven()
+        protected bool IsInternalCounterAndUpdateEven()
         {
             return (internalCounter % 2 == 0) ? (true) : (false);
         }
