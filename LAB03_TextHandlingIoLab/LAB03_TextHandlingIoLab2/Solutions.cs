@@ -95,17 +95,21 @@ namespace LAB03_TextHandlingIoLab2
         #region PlusCode
         internal bool IsPlusCode(string text)
         {
-            throw new NotImplementedException();
+            var regex = new Regex(@"(([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,3}))");
+            Match m = regex.Match(text);
+            return m.Success;
         }
 
         internal bool IsPlusCodeInBudapest(string text)
         {
-            throw new NotImplementedException();
+            var regex = new Regex(@"([23456789CFGHJMPQRVWX]{4}\+[23456789CFGHJMPQRVWX]{2,3})( [a-zA-z]+)");
+            Match m = regex.Match(text);
+            return m.Success;
         }
 
         internal string[] CollectFullPlusCodes(string text)
         {
-            throw new NotImplementedException();
+            return Collect(text, @"(([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,3}))").ToArray();
         }
 
         #endregion
