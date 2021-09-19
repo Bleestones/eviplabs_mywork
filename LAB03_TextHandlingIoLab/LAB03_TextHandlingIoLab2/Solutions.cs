@@ -38,7 +38,7 @@ namespace LAB03_TextHandlingIoLab2
 
         internal string[] CollectEmailAddresses(string s)
         {
-            throw new NotImplementedException();
+            return Collect(s, @"[a-z.]+\@[a-z.]+[a-z]+").ToArray();
         }
         #endregion
 
