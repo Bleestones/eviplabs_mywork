@@ -122,7 +122,7 @@ namespace LAB03_TextHandlingIoLab2
         /// <returns></returns>
         internal string[] CollectDates(string text)
         {
-            throw new NotImplementedException();
+            return EnumerateDates(text).ToArray();
         }
 
         /// <summary>
@@ -132,7 +132,10 @@ namespace LAB03_TextHandlingIoLab2
         /// <returns>IEnumerable of the "looks like a date" substrings.</returns>
         private IEnumerable<string> EnumerateDates(string text)
         {
-            throw new NotImplementedException();
+            var regex = new Regex(@"([0-9]){4}[-|\/](0[1-9]|1[0-2])[-|\/](0[1-9]|[12][0-9]|3[01])");
+            var matches = regex.Matches(text);
+            foreach (Match match in matches)
+                yield return match.Captures[0].Value;
         }
         #endregion
 
