@@ -70,17 +70,25 @@ namespace LAB03_TextHandlingIoLab2
         #region MusicBox
         internal bool IsInsideMusicBox(string text)
         {
-            throw new NotImplementedException();
+            var regex = new Regex(@"([a-zA-Zóőáéüö]+)?(dó|ré|mi|fá|szó|lá|ti)([a-zA-zóőáéüö]+)?");
+            Match m = regex.Match(text);
+            return m.Success;
         }
 
         internal string[] CollectWhatsInsideMusicBox(string text)
         {
-            throw new NotImplementedException();
+            return Collect(text, @"([a-zA-Zóőáéüö]+)?(dó|ré|mi|fá|szó|lá|ti)([a-zA-zóőáéüö]+)?").ToArray();
         }
 
         internal IEnumerable<char> HightlightNotesInMusicBox(string text)
         {
-            throw new NotImplementedException();
+            var regex = new Regex(@"([a-zA-Zóőáéüö]+)?(dó|ré|mi|fá|szó|lá|ti)([a-zA-zóőáéüö]+)?");
+            //Ilyet nem is vettünk. Mit is jelent a delegate? Belső változó?
+            // https://www.dotnetperls.com/regex-replace segített!!!
+            return Regex.Replace(text, regex.ToString(), delegate (Match match)
+            {
+                return $"{match.Groups[1]}*{match.Groups[2]}*{match.Groups[3]}";
+            });
         }
         #endregion
 
