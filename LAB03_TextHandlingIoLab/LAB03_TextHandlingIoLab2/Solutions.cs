@@ -49,17 +49,21 @@ namespace LAB03_TextHandlingIoLab2
         #region Phone numbers
         internal bool IsPhoneNumber(string v)
         {
-            throw new NotImplementedException();
+            var regex = new Regex(@"\+\d-(\d{3})+-(\d{3})+-(\d{4})+|(\+36|06)(\d{8,9}|-\d{2}-\d{3}-\d{4})");
+            Match m = regex.Match(v);
+            return m.Success;
         }
 
         internal string[] CollectPhoneNumbers(string text)
         {
-            throw new NotImplementedException();
+            return Collect(text, @"\+\d-(\d{3})+-(\d{3})+-(\d{4})+|(\+36|06)(\d{8,9}|-\d{2}-\d{3}-\d{4})").ToArray();
         }
 
         internal bool IsHungarianMobilePhoneNumber(string v)
         {
-            throw new NotImplementedException();
+            var regex = new Regex(@"(\+36|06)(\d{2})(\d{7})|(\+36|06)(\d{2})-(\d{3})-(\d{4})");
+            Match m = regex.Match(v);
+            return m.Success;
         }
         #endregion
 
