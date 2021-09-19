@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace LAB03_TextHandlingIoLab2
 {
+
     class Solutions
     {
         #region Examples and helper
@@ -33,7 +34,9 @@ namespace LAB03_TextHandlingIoLab2
         #region Email
         internal bool IsEmailAddress(string v)
         {
-            throw new NotImplementedException();
+            var regex = new Regex(@"[a-z.]+\@[a-z.]+[a-z]+");
+            Match m = regex.Match(v);
+            return m.Success;
         }
 
         internal string[] CollectEmailAddresses(string s)
