@@ -41,9 +41,7 @@ namespace LAB03_TextHandlingIoLab2
         #region Email
         internal bool IsEmailAddress(string v)
         {
-            var regex = new Regex(emailRegex);
-            Match m = regex.Match(v);
-            return m.Success;
+            return RegexBuilder(v, emailRegex).Success;
         }
 
         internal string[] CollectEmailAddresses(string s)
@@ -55,9 +53,7 @@ namespace LAB03_TextHandlingIoLab2
         #region Phone numbers
         internal bool IsPhoneNumber(string v)
         {
-            var regex = new Regex(phoneRegex);
-            Match m = regex.Match(v);
-            return m.Success;
+            return RegexBuilder(v,phoneRegex).Success;
         }
 
         internal string[] CollectPhoneNumbers(string text)
@@ -67,18 +63,14 @@ namespace LAB03_TextHandlingIoLab2
 
         internal bool IsHungarianMobilePhoneNumber(string v)
         {
-            var regex = new Regex(phoneHungaryRegex);
-            Match m = regex.Match(v);
-            return m.Success;
+            return RegexBuilder(v, phoneHungaryRegex).Success;
         }
         #endregion
 
         #region MusicBox
         internal bool IsInsideMusicBox(string text)
         {
-            var regex = new Regex(musicboxRegex);
-            Match m = regex.Match(text);
-            return m.Success;
+            return RegexBuilder(text, musicboxRegex).Success;
         }
 
         internal string[] CollectWhatsInsideMusicBox(string text)
@@ -101,16 +93,12 @@ namespace LAB03_TextHandlingIoLab2
         #region PlusCode
         internal bool IsPlusCode(string text)
         {
-            var regex = new Regex(pluscodeRegex);
-            Match m = regex.Match(text);
-            return m.Success;
+            return RegexBuilder(text, pluscodeRegex).Success;
         }
 
         internal bool IsPlusCodeInBudapest(string text)
         {
-            var regex = new Regex(pluscodeBudapestRegex);
-            Match m = regex.Match(text);
-            return m.Success;
+            return RegexBuilder(text, pluscodeBudapestRegex).Success;
         }
 
         internal string[] CollectFullPlusCodes(string text)
@@ -144,6 +132,12 @@ namespace LAB03_TextHandlingIoLab2
                 yield return match.Captures[0].Value;
         }
         #endregion
+
+        internal Match RegexBuilder(string v, string regeX)
+        {
+            var regex = new Regex(regeX);
+            return regex.Match(v);
+        }
 
     }
 }
