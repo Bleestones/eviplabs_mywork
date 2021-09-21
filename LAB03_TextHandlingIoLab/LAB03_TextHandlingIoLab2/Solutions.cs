@@ -8,6 +8,12 @@ namespace LAB03_TextHandlingIoLab2
     class Solutions
     {
         private string emailRegex = @"[a-z.]+\@[a-z.]+[a-z]+";
+        private string phoneRegex = @"\+\d-(\d{3})+-(\d{3})+-(\d{4})+|(\+36|06)(\d{8,9}|-\d{2}-\d{3}-\d{4})";
+        private string phoneHungaryRegex = @"(\+36|06)(\d{2})(\d{7})|(\+36|06)(\d{2})-(\d{3})-(\d{4})";
+        private string musicboxRegex = @"([a-zA-Zóőáéüö]+)?(dó|ré|mi|fá|szó|lá|ti)([a-zA-zóőáéüö]+)?";
+        private string pluscodeRegex = @"(([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,3}))";
+        private string pluscodeBudapestRegex = @"([23456789CFGHJMPQRVWX]{4}\+[23456789CFGHJMPQRVWX]{2,3})( [a-zA-z]+)";
+        private string dateRegex = @"([0-9]){4}[-|\/](0[1-9]|1[0-2])[-|\/](0[1-9]|[12][0-9]|3[01])";
 
         #region Examples and helper
         internal bool MatchingExample()
@@ -35,33 +41,33 @@ namespace LAB03_TextHandlingIoLab2
         #region Email
         internal bool IsEmailAddress(string v)
         {
-            var regex = new Regex($"{emailRegex}");
+            var regex = new Regex(emailRegex);
             Match m = regex.Match(v);
             return m.Success;
         }
 
         internal string[] CollectEmailAddresses(string s)
         {
-            return Collect(s, $"{emailRegex}").ToArray();
+            return Collect(s, emailRegex).ToArray();
         }
         #endregion
 
         #region Phone numbers
         internal bool IsPhoneNumber(string v)
         {
-            var regex = new Regex(@"\+\d-(\d{3})+-(\d{3})+-(\d{4})+|(\+36|06)(\d{8,9}|-\d{2}-\d{3}-\d{4})");
+            var regex = new Regex(phoneRegex);
             Match m = regex.Match(v);
             return m.Success;
         }
 
         internal string[] CollectPhoneNumbers(string text)
         {
-            return Collect(text, @"\+\d-(\d{3})+-(\d{3})+-(\d{4})+|(\+36|06)(\d{8,9}|-\d{2}-\d{3}-\d{4})").ToArray();
+            return Collect(text, phoneRegex).ToArray();
         }
 
         internal bool IsHungarianMobilePhoneNumber(string v)
         {
-            var regex = new Regex(@"(\+36|06)(\d{2})(\d{7})|(\+36|06)(\d{2})-(\d{3})-(\d{4})");
+            var regex = new Regex(phoneHungaryRegex);
             Match m = regex.Match(v);
             return m.Success;
         }
@@ -70,19 +76,19 @@ namespace LAB03_TextHandlingIoLab2
         #region MusicBox
         internal bool IsInsideMusicBox(string text)
         {
-            var regex = new Regex(@"([a-zA-Zóőáéüö]+)?(dó|ré|mi|fá|szó|lá|ti)([a-zA-zóőáéüö]+)?");
+            var regex = new Regex(musicboxRegex);
             Match m = regex.Match(text);
             return m.Success;
         }
 
         internal string[] CollectWhatsInsideMusicBox(string text)
         {
-            return Collect(text, @"([a-zA-Zóőáéüö]+)?(dó|ré|mi|fá|szó|lá|ti)([a-zA-zóőáéüö]+)?").ToArray();
+            return Collect(text, musicboxRegex).ToArray();
         }
 
         internal IEnumerable<char> HightlightNotesInMusicBox(string text)
         {
-            var regex = new Regex(@"([a-zA-Zóőáéüö]+)?(dó|ré|mi|fá|szó|lá|ti)([a-zA-zóőáéüö]+)?");
+            var regex = new Regex(musicboxRegex);
             //Ilyet nem is vettünk. Mit is jelent a delegate? Belső változó?
             // https://www.dotnetperls.com/regex-replace segített!!!
             return Regex.Replace(text, regex.ToString(), delegate (Match match)
@@ -95,21 +101,21 @@ namespace LAB03_TextHandlingIoLab2
         #region PlusCode
         internal bool IsPlusCode(string text)
         {
-            var regex = new Regex(@"(([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,3}))");
+            var regex = new Regex(pluscodeRegex);
             Match m = regex.Match(text);
             return m.Success;
         }
 
         internal bool IsPlusCodeInBudapest(string text)
         {
-            var regex = new Regex(@"([23456789CFGHJMPQRVWX]{4}\+[23456789CFGHJMPQRVWX]{2,3})( [a-zA-z]+)");
+            var regex = new Regex(pluscodeBudapestRegex);
             Match m = regex.Match(text);
             return m.Success;
         }
 
         internal string[] CollectFullPlusCodes(string text)
         {
-            return Collect(text, @"(([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,3}))").ToArray();
+            return Collect(text, pluscodeRegex).ToArray();
         }
 
         #endregion
@@ -132,7 +138,7 @@ namespace LAB03_TextHandlingIoLab2
         /// <returns>IEnumerable of the "looks like a date" substrings.</returns>
         private IEnumerable<string> EnumerateDates(string text)
         {
-            var regex = new Regex(@"([0-9]){4}[-|\/](0[1-9]|1[0-2])[-|\/](0[1-9]|[12][0-9]|3[01])");
+            var regex = new Regex(dateRegex);
             var matches = regex.Matches(text);
             foreach (Match match in matches)
                 yield return match.Captures[0].Value;
