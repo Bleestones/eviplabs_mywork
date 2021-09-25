@@ -6,6 +6,7 @@ namespace UserRepository
 {
     public class DictionaryUserRepository : IUserRepository
     {
+        Dictionary<string, User> users = new Dictionary<string, User>();
         public int Count()
         {
             return 0;
@@ -20,11 +21,12 @@ namespace UserRepository
 
         public User GetById(string id)
         {
-            return null;
+            return users.GetValueOrDefault(id);
         }
 
         public void Insert(User user)
         {
+            users.Add(user.Id, user);
         }
     }
 }
