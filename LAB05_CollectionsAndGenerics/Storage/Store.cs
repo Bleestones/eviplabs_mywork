@@ -56,12 +56,18 @@ namespace Storage
 
         public void Buy(IStorable item)
         {
-            throw new NotImplementedException();
+            if(item.InStock > 0)
+                storage.Add(item.Id, item);
         }
 
         public void Buy(string id, int amount)
         {
-            throw new NotImplementedException();
+            if (storage.ContainsKey(id))
+            {
+                if (amount > 0)
+                    storage[id].InStock += amount;
+                else throw new ArgumentException();
+            }
         }
 
         public void Remove(string id)
