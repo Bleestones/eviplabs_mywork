@@ -38,7 +38,7 @@ Hint: LinkedList (és megfelelő függvényei)
 
 A láncolt listás megvalósításnál a bináris keresés lelassult, mivel az elemeket nem tudjuk közvetlenül címezni. Nem nyertünk sokat a listás megvalósításhoz képest. Az elemek sorrendben tárolása nem is annyira fontos, csak a gyors elérésük a cél. A User-eket id-juk alapján akarjuk elérni.
 
-VÁLASZ: A MeasureGetByIdNumber által mért futásidő ebben az esetben: ______ms
+VÁLASZ: A MeasureGetByIdNumber által mért futásidő ebben az esetben: 13126ms (millisecund)
 
 Használjunk egy olyan adatstruktúrát, ahol az egyes elemeket valamilyen kulcs alapján gyorsan el lehet érni!
 
@@ -48,11 +48,11 @@ A példaalkalmazás méri, hogy az egyes megvalósítások mennyi idő alatt vé
 
 Adattároló      | Feltöltési idő    | Lekérdezési idő
 ----------------|-------------------|----------------
-Array           |                   |
-List            |                   |
-List (sorted)   |                   |
-LinkedList      |                   |
-Dictionary      |                   |
+Array           |  5.7695ms         |  633.9ms
+List            |  4.0311ms         |  1043ms
+List (sorted)   |  802.64ms         |  37.9492ms
+LinkedList      |  16.6957ms        |  11018.42ms
+Dictionary      |  5.4627ms         |  2.0389ms
 
 ## Második feladat
 
