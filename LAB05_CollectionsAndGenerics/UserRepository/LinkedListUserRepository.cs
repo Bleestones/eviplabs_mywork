@@ -7,6 +7,7 @@ namespace UserRepository
 {
     public class LinkedListUserRepository : IUserRepository
     {
+        LinkedList<User> users = new LinkedList<User>();
         public int Count()
         {
             return 0;
@@ -14,13 +15,13 @@ namespace UserRepository
 
         public User Get(int index)
         {
-            return null;
+            return users.ElementAt(index);
         }
 
         public User GetById(string id)
         {
             // Binaris kereses rendezett tombon
-/*            var left = 0;
+            var left = 0;
             var right = users.Count - 1;
             while (left <= right)
             {
@@ -37,13 +38,27 @@ namespace UserRepository
                 {
                     return users.ElementAt(mid);
                 }
-            } */
+            }
             return null;
         }
 
         public void Insert(User user)
         {
             // A string.Compare segítségével keresd meg, hova kell beszúrni az új usert.
+            LinkedListNode<User> userNode = null;
+            foreach (User u in users)
+            {
+                if (user.Id.CompareTo(u.Id) < 0)
+                {
+                    userNode = users.Find(u);
+                    break;
+                }
+            }
+            //O(1) muveletek
+            if (userNode is null)
+                users.AddFirst(user);
+            else
+                users.AddBefore(userNode, user);
         }
     }
 }
