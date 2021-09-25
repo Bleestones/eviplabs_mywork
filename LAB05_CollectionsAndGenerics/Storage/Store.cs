@@ -20,7 +20,7 @@ namespace Storage
         public void InsertMany(List<IStorable> items)
         {
             foreach (IStorable storable in items)
-                storage.Add(storable.Id, storable);
+                Insert(storable);
         }
 
         public IStorable GetById(string id)
