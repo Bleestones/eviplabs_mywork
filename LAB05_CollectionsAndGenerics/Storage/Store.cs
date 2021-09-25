@@ -19,7 +19,8 @@ namespace Storage
 
         public void InsertMany(List<IStorable> items)
         {
-            throw new NotImplementedException();
+            foreach (IStorable storable in items)
+                storage.Add(storable.Id, storable);
         }
 
         public IStorable GetById(string id)
