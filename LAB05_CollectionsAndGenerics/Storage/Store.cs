@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Storage
 {
@@ -26,7 +27,7 @@ namespace Storage
 
         public IStorable GetById(string id)
         {
-            throw new NotImplementedException();
+            return storage.GetValueOrDefault(id);
         }
 
         public Dictionary<string, IStorable> GetAllDictionary()
@@ -36,12 +37,21 @@ namespace Storage
 
         public List<IStorable> GetAllList()
         {
-            throw new NotImplementedException();
+            //Nem volt tilos a LinQ, nem? Igaz, azért használtam, mert így könnyebben áttudtam neki adni listát
+            //Máshogyan, hogyan lehetne?
+            //Segítség
+            //https://www.dotnetperls.com/tolist
+            return storage.Values.ToList<IStorable>();
         }
 
         public void Sell(string id, int amount)
         {
-            throw new NotImplementedException();
+            if (storage.ContainsKey(id))
+            {
+                if (amount > 0 && storage.GetValueOrDefault(id).InStock - amount >= 0)
+                    storage[id].InStock -= amount;
+                else throw new ArgumentException();
+            }     
         }
 
         public void Buy(IStorable item)
