@@ -6,7 +6,7 @@ namespace UserRepository
 {
     public class ArrayUserRepository : IUserRepository
     {
-        private User[] users = new User[5];
+        private User[] users = new User[9001];
         private int count = 0;
 
         public int Count()
