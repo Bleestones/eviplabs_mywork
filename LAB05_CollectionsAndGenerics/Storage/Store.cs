@@ -14,7 +14,7 @@ namespace Storage
 
         public void Insert(IStorable item)
         {
-            throw new NotImplementedException();
+            storage.Add(item.Id, item);
         }
 
         public void InsertMany(List<IStorable> items)
