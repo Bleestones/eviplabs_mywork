@@ -14,7 +14,8 @@ namespace Storage
 
         public void Insert(IStorable item)
         {
-            storage.Add(item.Id, item);
+            if(!storage.ContainsKey(item.Id) && item.InStock > 0)
+                storage.Add(item.Id, item);
         }
 
         public void InsertMany(List<IStorable> items)
