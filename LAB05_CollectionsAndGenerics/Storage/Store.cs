@@ -72,12 +72,14 @@ namespace Storage
 
         public void Remove(string id)
         {
-            throw new NotImplementedException();
+            if(storage.ContainsKey(id))
+                storage.Remove(id);
         }
 
         public void Remove(IStorable item)
         {
-            throw new NotImplementedException();
+            if (storage.ContainsValue(item))
+                storage.Remove(item.Id);
         }
     }
 }
