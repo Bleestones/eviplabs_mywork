@@ -51,7 +51,7 @@ Adattároló      | Feltöltési idő    | Lekérdezési idő
 Array           |  5.7695ms         |  633.9ms
 List            |  4.0311ms         |  1043ms
 List (sorted)   |  802.64ms         |  37.9492ms
-LinkedList      |  16.6957ms        |  11018.42ms
+LinkedList      |  618.6957ms       |  7440.42ms
 Dictionary      |  5.4627ms         |  2.0389ms
 
 ## Második feladat
