@@ -32,7 +32,7 @@ namespace Storage
 
         public Dictionary<string, IStorable> GetAllDictionary()
         {
-            throw new NotImplementedException();
+            return storage;
         }
 
         public List<IStorable> GetAllList()
