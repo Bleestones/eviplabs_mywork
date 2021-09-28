@@ -54,7 +54,7 @@ namespace UserRepository
             }
             //O(1) muveletek
             if (userNode is null)
-                users.AddFirst(user);
+                users.AddLast(user);
             else
                 users.AddBefore(userNode, user);
         }
