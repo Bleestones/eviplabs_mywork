@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace UserRepository
 {
     public class ListUserRepository : IUserRepository
     {
+        private List<User> users = new List<User>();
         public int Count()
         {
             return 0;
@@ -14,16 +13,20 @@ namespace UserRepository
         public User Get(int index)
         {
             // Tipp: használd az indexer "[]" operátort!
-            return null;
+            return users[index];
         }
 
         public User GetById(string id)
         {
+            foreach (User u in users)
+                if (u.Id.Equals(id))
+                    return u;
             return null;
         }
 
         public void Insert(User user)
         {
+            users.Add(user);
         }
     }
 }

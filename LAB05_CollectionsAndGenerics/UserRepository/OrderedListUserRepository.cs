@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace UserRepository
 {
     public class OrderedListUserRepository : IUserRepository
     {
+        public List<User> users = new List<User>();
         public int Count()
         {
             return 0;
@@ -13,13 +12,13 @@ namespace UserRepository
 
         public User Get(int index)
         {
-            return null;
+            return users[index];
         }
 
         public User GetById(string id)
         {
             // Binaris kereses rendezett tombon
-/*            var left = 0;
+            var left = 0;
             var right = users.Count - 1;
             while (left <= right)
             {
@@ -36,12 +35,22 @@ namespace UserRepository
                 {
                     return users[mid];
                 }
-            } */
+            }
             return null;
         }
 
         public void Insert(User user)
         {
+            int position = 0;
+            foreach(User u in users)
+            {
+                if(user.Id.CompareTo(u.Id) < 0)
+                {
+                    break;
+                }
+                position++;
+            }
+            users.Insert(position, user);
         }
     }
 }
