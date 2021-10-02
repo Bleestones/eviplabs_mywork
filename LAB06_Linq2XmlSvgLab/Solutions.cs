@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using System.Globalization;
 
 namespace Linq2XmlSvgLab
 {
@@ -29,7 +31,9 @@ namespace Linq2XmlSvgLab
         // Hány olyan szöveg van, aminek ez a tartalma?
         internal int CountTextsWithValue(string v)
         {
-            return 0;
+            return Texts
+                .Where(text => text.Value
+                .Contains(v)).Count();
         }
 
         #region Téglalap szűrések
@@ -38,19 +42,35 @@ namespace Linq2XmlSvgLab
         //  szerepel, pl. "stroke-width:2".
         internal IEnumerable<XElement> GetRectanglesWithStrokeWidth(int width)
         {
-            return Rects.Where(r => r.Attribute("style").Value.Contains($"stroke-width:{width}"));
+            return Rects
+                .Where(r => r.Attribute("style").Value
+                .Contains($"stroke-width:{width}"));
         }
 
         // Adott x koordinátájú téglalapok színének visszaadása szövegesen (pl. piros esetén "#ff0000").
         internal IEnumerable<string> GetColorOfRectanglesWithGivenX(double x)
         {
-            return null;
+            var regex = new Regex("(fill:)([#][a-f0-9]{6});");
+            return Rects
+                .Where(coords => coords.Attribute("x").Value
+                .StartsWith(x.ToString()))
+                .Select(styleAttributes => styleAttributes.Attribute("style").Value)
+                .Select(color => regex.Match(color).Groups[2].Value.ToString());
         }
 
         // Az adott ID-jú téglalap pozíciójának (x,y) visszaadása.
         internal (double X, double Y) GetRectangleLocationById(string id)
         {
-            return (0, 0);
+            return (Convert.ToDouble(Rects
+                .FirstOrDefault(rectID => rectID.Attribute("id").Value
+                .Equals(id))
+                .Attribute("x").Value.ToString(), CultureInfo.InvariantCulture),
+                Convert.ToDouble(Rects
+                .FirstOrDefault(rectID => rectID.Attribute("id").Value
+                .Equals(id))
+                .Attribute("y").Value.ToString(), CultureInfo.InvariantCulture));
+                
+
         }
 
         // A legnagyobb y értékkel rendezkező téglalap ID-jának visszaadása.
