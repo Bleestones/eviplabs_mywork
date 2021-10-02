@@ -21,6 +21,8 @@ namespace Linq2XmlSvgLab
         private IEnumerable<XElement> Rects => root.Descendants(ns + "rect");
         private IEnumerable<XElement> Texts => root.Descendants(ns + "text");
 
+        private IEnumerable<XElement> Groups => root.Descendants(ns + "g");
+
         #region A laborfeladatok megoldásai
         // Minden téglalap (rect elem) felsorolása
         internal IEnumerable<XElement> GetAllRectangles()
