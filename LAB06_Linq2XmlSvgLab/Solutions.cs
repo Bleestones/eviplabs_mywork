@@ -38,7 +38,7 @@ namespace Linq2XmlSvgLab
         //  szerepel, pl. "stroke-width:2".
         internal IEnumerable<XElement> GetRectanglesWithStrokeWidth(int width)
         {
-            return null;
+            return Rects.Where(r => r.Attribute("style").Value.Contains($"stroke-width:{width}"));
         }
 
         // Adott x koordinátájú téglalapok színének visszaadása szövegesen (pl. piros esetén "#ff0000").
