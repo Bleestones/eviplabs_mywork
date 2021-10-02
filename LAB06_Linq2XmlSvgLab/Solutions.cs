@@ -84,7 +84,9 @@ namespace Linq2XmlSvgLab
         // Minden olyan téglalap ID-jának felsorolása, ami legalább kétszer olyan magas mint széles.
         internal IEnumerable<string> GetRectanglesAtLeastTwiceAsHighAsWide()
         {
-            return null;
+            return Rects
+                .Where(rectangle => IsAtLeastTwiceAsHighAsWide(rectangle))
+                .Select(id => id.Attribute("id").Value);
         }
         #endregion
 
@@ -182,7 +184,7 @@ namespace Linq2XmlSvgLab
         // A kapott rect magassága legalább kétszer akkora, mint a szélessége?
         private bool IsAtLeastTwiceAsHighAsWide(XElement rect)
         {
-            return false;
+            return (double)rect.Attribute("height") > (double)rect.Attribute("width") * 2;
         }
 
         // A this.Rects attribútumból felsorolja azokat az elemeket, melyek kitöltési színe a megadott szín.
