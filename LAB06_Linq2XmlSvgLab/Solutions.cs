@@ -68,15 +68,17 @@ namespace Linq2XmlSvgLab
                 Convert.ToDouble(Rects
                 .FirstOrDefault(rectID => rectID.Attribute("id").Value
                 .Equals(id))
-                .Attribute("y").Value.ToString(), CultureInfo.InvariantCulture));
-                
-
+                .Attribute("y").Value.ToString(), CultureInfo.InvariantCulture));          
         }
 
         // A legnagyobb y értékkel rendezkező téglalap ID-jának visszaadása.
         internal string GetIdOfRectangeWithLargestY()
         {
-            return null;
+            return Rects
+                .OrderByDescending(y => (double)(y.Attribute("y")))
+                .First()
+                .Attribute("id").Value.ToString();
+                
         }
 
         // Minden olyan téglalap ID-jának felsorolása, ami legalább kétszer olyan magas mint széles.
