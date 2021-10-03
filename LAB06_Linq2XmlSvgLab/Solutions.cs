@@ -96,7 +96,16 @@ namespace Linq2XmlSvgLab
         // Adott ID-jú group-ban lévő téglalapok színét sorolja fel.
         internal IEnumerable<string> GetColorsOfRectsInGroup(string id)
         {
-            return null;
+            var regex = new Regex("(fill:)([#][a-f0-9]{6});");
+            return Groups
+                .Where(groupID => groupID.Attribute("id").Value
+                .Contains(id))
+                .Select(nodes => nodes.Elements(ns + "rect"))
+                .Select(styleAttribute => styleAttribute.Attributes("style")
+                    .Select(style => style.Value))
+                .Select(styles => styles
+                    .Select(colors => regex.Match(colors).Groups[2].Value))
+                .SelectMany(p => p);
         }
         #endregion
 
