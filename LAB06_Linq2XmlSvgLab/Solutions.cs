@@ -114,7 +114,9 @@ namespace Linq2XmlSvgLab
         //  (Olyan rect, aminek a területén van egy szövegnek a kezdőpontja (x,y).)
         internal IEnumerable<XElement> GetRectanglesWithTextInside()
         {
-            return null;
+            return Rects
+                .SelectMany(rects => Texts
+                .Where(texts => IsInside(rects, ((double)texts.Attribute("x"), (double)texts.Attribute("y")))));
         }
 
         // Adott színű téglalapon belüli szöveg visszaadása.
@@ -122,13 +124,23 @@ namespace Linq2XmlSvgLab
         //  szöveg szerepel.
         internal string GetSingleTextInSingleRectangleWithColor(string color)
         {
-            return null;
+            return (from text in Texts
+                    where (from rect in Rects
+                           where IsInside(rect, text.GetLocation())
+                           where rect.GetFillColor().Contains(color)
+                           select rect).Any()
+                    select text.Value).SingleOrDefault();
+
         }
 
         // Minden téglalapon kívüli szöveg felsorolása.
         internal IEnumerable<string> GetTextsOutsideRectangles()
         {
-            return null;
+            return (from text in Texts
+                    where (from rect in Rects
+                           where IsInside(rect, text.GetLocation())
+                           select rect).All(thenno => false)
+                    select text.Value);
         }
         #endregion
 
@@ -208,21 +220,26 @@ namespace Linq2XmlSvgLab
         //  Használhatod a lentebb megírandó GetRectBoundaries-t.
         private bool IsInside(XElement rect, (double x, double y) p)
         {
-            return false;
+            (double left, double top, double right, double bottom) = GetRectBoundaries(rect);
+            return (left <= p.x && p.x <= right) && (top < p.y && p.y < bottom) ? true : false;
         }
 
         // Igaz, ha a két téglalap (r1 és r2) között a távolság egyik tengely
         //  mentén sem nagyobb, mint maxDistance.
         private bool AreClose(XElement r1, XElement r2, double maxDistance)
         {
-            return false;
+            return (true) ? true : false;
         }
 
         // Visszaadja egy téglalap határait. Figyelem! Ha left==2 és width==3,
         //  akkor right==4 és nem 5! Hasonlóan a magasságra is.
         private (double left,double top,double right,double bottom) GetRectBoundaries(XElement r)
         {
-            return (0,0,0,0);
+            double left = (double)r.Attribute("x");
+            double top = (double)r.Attribute("y");
+            double right = left + (double)r.Attribute("width");
+            double bottom = top + (double)r.Attribute("height");
+            return (left, top, right, bottom);
         }
         #endregion
     }
