@@ -156,7 +156,6 @@ namespace Linq2XmlSvgLab
                                   select rects)
                     where rects2.Any()
                     select (rects1.GetId(), rects2.First().GetId())).First();
-
         }
         #endregion
 
@@ -166,7 +165,11 @@ namespace Linq2XmlSvgLab
         //  is téglalap.)
         internal ILookup<string, string> GetBoundingRectangleColorListForEveryText()
         {
-            return null;
+            return (from rects in Rects
+                    let thatText = (from texts in Texts
+                                    where IsInside(rects, texts.GetLocation())
+                                    select texts.Value)
+                    select (thatText, COLOR : rects.GetFillColor())).ToLookup(key => key.thatText.FirstOrDefault(), value => value.COLOR);
         }
 
         // Minden téglalapon belüli szöveg ABC sorrendben egymás mögé fűzése, ", "-zel elválasztva.
@@ -174,7 +177,12 @@ namespace Linq2XmlSvgLab
         // Használd az Aggregate Linq metódust egy StringBuilderrel az összegyűjtéshez!
         internal string ConcatenateOrderedTextsInsideRectangles()
         {
-            return string.Empty;
+            return (from texts in Texts
+                    where (from rects in Rects
+                           where IsInside(rects, texts.GetLocation())
+                           select true).Any()
+                    select texts.Value).OrderBy(texts => texts).Aggregate((a, b) => a + ", " + b);
+
         }
 
         // Az adott kontúrszélességű (stroke width) téglalapok által együttesen lefedett terület
