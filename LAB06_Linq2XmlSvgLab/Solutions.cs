@@ -150,13 +150,12 @@ namespace Linq2XmlSvgLab
         // (Itt nem gond, ha foreach-et használsz, de jobb, ha nem.)
         internal (string id1, string id2) GetSingleRectanglePairCloseToEachOther(double maxDistance)
         {
-            var ret = from rects1 in Rects
-                      let rects2 = (from rects in Rects
+            return (from rects1 in Rects
+                    let rects2 = (from rects in Rects
                                   where !rects.Equals(rects1) && AreClose(rects1, rects, maxDistance)
                                   select rects)
                     where rects2.Any()
-                    select (rects1.GetId(), rects2.First().GetId());
-            return ret.First();
+                    select (rects1.GetId(), rects2.First().GetId())).First();
 
         }
         #endregion
