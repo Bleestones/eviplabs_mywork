@@ -228,7 +228,7 @@ namespace Linq2XmlSvgLab
         private bool IsInside(XElement rect, (double x, double y) p)
         {
             (double left, double top, double right, double bottom) = GetRectBoundaries(rect);
-            return (left <= p.x && p.x <= right) && (top < p.y && p.y < bottom) ? true : false;
+            return left <= p.x && p.x <= right && (top < p.y && p.y < bottom);
         }
 
         // Igaz, ha a két téglalap (r1 és r2) között a távolság egyik tengely
