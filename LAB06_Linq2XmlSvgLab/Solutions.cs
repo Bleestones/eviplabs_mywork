@@ -189,8 +189,16 @@ namespace Linq2XmlSvgLab
         //  szélességét és magasságát adja meg
         internal (double Width, double Height) GetEffectiveWidthAndHeight(int strokeThickness)
         {
-            return (Width: 0, Height: 0);
+            Boundary boundary = new Boundary();
+            var rectsCollected = ((from rects in Rects
+                                       where rects.Attribute("style").Value.Contains($"stroke-width:{strokeThickness}")
+                                       select rects));
+            foreach(var rects in rectsCollected)
+            {
+                boundary.UpdateToCoverRect(rects);
+            }
 
+            return (boundary.Width, boundary.Height);
         }
         #endregion
         #endregion
