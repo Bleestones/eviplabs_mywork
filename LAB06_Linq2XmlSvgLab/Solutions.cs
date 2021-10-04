@@ -150,7 +150,14 @@ namespace Linq2XmlSvgLab
         // (Itt nem gond, ha foreach-et használsz, de jobb, ha nem.)
         internal (string id1, string id2) GetSingleRectanglePairCloseToEachOther(double maxDistance)
         {
-            return (null, null);
+            var ret = from rects1 in Rects
+                      let rects2 = (from rects in Rects
+                                  where !rects.Equals(rects1) && AreClose(rects1, rects, maxDistance)
+                                  select rects)
+                    where rects2.Any()
+                    select (rects1.GetId(), rects2.First().GetId());
+            return ret.First();
+
         }
         #endregion
 
@@ -228,7 +235,12 @@ namespace Linq2XmlSvgLab
         //  mentén sem nagyobb, mint maxDistance.
         private bool AreClose(XElement r1, XElement r2, double maxDistance)
         {
-            return (true) ? true : false;
+            double r1centerx = r1.GetX() + (r1.GetWidth() /2);
+            double r1centery = r1.GetY() + (r1.GetHeight() / 2);
+            double r2centerx = r2.GetX() + (r2.GetWidth() / 2);
+            double r2centery = r2.GetY() + (r2.GetHeight() / 2);
+            double calculatedDistance = Math.Max(Math.Abs(r1centerx - r2centerx) - (r1.GetWidth() + r2.GetWidth()) / 2, Math.Abs(r1centery - r2centery) - (r1.GetHeight() + r2.GetHeight()) / 2);
+            return (calculatedDistance < maxDistance);
         }
 
         // Visszaadja egy téglalap határait. Figyelem! Ha left==2 és width==3,
