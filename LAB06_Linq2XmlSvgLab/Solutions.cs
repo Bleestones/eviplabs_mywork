@@ -52,50 +52,40 @@ namespace Linq2XmlSvgLab
         // Adott x koordinátájú téglalapok színének visszaadása szövegesen (pl. piros esetén "#ff0000").
         internal IEnumerable<string> GetColorOfRectanglesWithGivenX(double x)
         {
-            var regex = new Regex("(fill:)([#][a-f0-9]{6});");
-            return Rects
-                .Where(coords => coords.Attribute("x").Value
-                .StartsWith(x.ToString()))
-                .Select(styleAttributes => styleAttributes.Attribute("style").Value)
-                .Select(color => regex.Match(color).Groups[2].Value.ToString());
+            return from rects in Rects
+                   where rects.GetX() == x
+                   select rects.GetFillColor();
         }
 
         // Az adott ID-jú téglalap pozíciójának (x,y) visszaadása.
         internal (double X, double Y) GetRectangleLocationById(string id)
         {
-            return (Convert.ToDouble(Rects
-                .FirstOrDefault(rectID => rectID.Attribute("id").Value
-                .Equals(id))
-                .Attribute("x").Value.ToString(), CultureInfo.InvariantCulture),
-                Convert.ToDouble(Rects
-                .FirstOrDefault(rectID => rectID.Attribute("id").Value
-                .Equals(id))
-                .Attribute("y").Value.ToString(), CultureInfo.InvariantCulture));          
+            return (from rects in Rects
+                    where rects.GetId().Equals(id)
+                    select (rects.GetX(), rects.GetY())).First();         
         }
 
         // A legnagyobb y értékkel rendezkező téglalap ID-jának visszaadása.
         internal string GetIdOfRectangeWithLargestY()
         {
-            return Rects
-                .OrderByDescending(y => (double)(y.Attribute("y")))
-                .First()
-                .Attribute("id").Value.ToString();
-                
+            return (from rects in Rects
+                   .OrderByDescending(rectsY => rectsY.GetY())
+                   select rects.GetId()).First();     
         }
 
         // Minden olyan téglalap ID-jának felsorolása, ami legalább kétszer olyan magas mint széles.
         internal IEnumerable<string> GetRectanglesAtLeastTwiceAsHighAsWide()
         {
-            return Rects
-                .Where(rectangle => IsAtLeastTwiceAsHighAsWide(rectangle))
-                .Select(id => id.Attribute("id").Value);
+            return (from rects in Rects
+                    where IsAtLeastTwiceAsHighAsWide(rects)
+                    select rects.GetId());
         }
         #endregion
 
         #region Group kezelés
         // Adott ID-jú group-ban lévő téglalapok színét sorolja fel.
         internal IEnumerable<string> GetColorsOfRectsInGroup(string id)
-        {
+        {      
             var regex = new Regex("(fill:)([#][a-f0-9]{6});");
             return Groups
                 .Where(groupID => groupID.Attribute("id").Value
@@ -114,6 +104,10 @@ namespace Linq2XmlSvgLab
         //  (Olyan rect, aminek a területén van egy szövegnek a kezdőpontja (x,y).)
         internal IEnumerable<XElement> GetRectanglesWithTextInside()
         {
+            /*return (from rects in Rects
+                   let text = (from texts in Texts
+                               where IsInside(rects, (texts.GetX(), texts.GetY())))
+                   select rects)*/
             return Rects
                 .SelectMany(rects => Texts
                 .Where(texts => IsInside(rects, ((double)texts.Attribute("x"), (double)texts.Attribute("y")))));
