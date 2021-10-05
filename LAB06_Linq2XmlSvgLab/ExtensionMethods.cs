@@ -43,6 +43,11 @@ namespace Linq2XmlSvgLab
             return style.Substring(idx + 5, 7);
         }
 
+        static public bool IsCorrectStrokeWidth(this XElement rect, int strokeWidth)
+        {
+            return rect.Attribute("style").Value.Contains($"stroke-width:{strokeWidth}");
+        }
+
         static public (double, double) GetLocation(this XElement e)
         {
             return (e.GetX(), e.GetY());

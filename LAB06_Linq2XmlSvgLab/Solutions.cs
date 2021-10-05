@@ -33,9 +33,9 @@ namespace Linq2XmlSvgLab
         // Hány olyan szöveg van, aminek ez a tartalma?
         internal int CountTextsWithValue(string v)
         {
-            return Texts
-                .Where(text => text.Value
-                .Contains(v)).Count();
+            return (from texts in Texts
+                    where texts.Value.Contains(v)
+                    select true).Count();
         }
 
         #region Téglalap szűrések
@@ -44,9 +44,9 @@ namespace Linq2XmlSvgLab
         //  szerepel, pl. "stroke-width:2".
         internal IEnumerable<XElement> GetRectanglesWithStrokeWidth(int width)
         {
-            return Rects
-                .Where(r => r.Attribute("style").Value
-                .Contains($"stroke-width:{width}"));
+            return from rects in Rects
+                   where rects.IsCorrectStrokeWidth(width)
+                   select rects;
         }
 
         // Adott x koordinátájú téglalapok színének visszaadása szövegesen (pl. piros esetén "#ff0000").
@@ -262,11 +262,7 @@ namespace Linq2XmlSvgLab
         //  akkor right==4 és nem 5! Hasonlóan a magasságra is.
         private (double left,double top,double right,double bottom) GetRectBoundaries(XElement r)
         {
-            double left = (double)r.Attribute("x");
-            double top = (double)r.Attribute("y");
-            double right = left + (double)r.Attribute("width");
-            double bottom = top + (double)r.Attribute("height");
-            return (left, top, right, bottom);
+            return (r.GetX(), r.GetY(), r.GetX() + r.GetWidth(), r.GetY() + r.GetHeight());
         }
         #endregion
     }
