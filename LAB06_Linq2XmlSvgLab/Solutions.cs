@@ -228,20 +228,24 @@ namespace Linq2XmlSvgLab
         //  Használhatod a lentebb megírandó GetRectBoundaries-t.
         private bool IsInside(XElement rect, (double x, double y) p)
         {
-            (double left, double top, double right, double bottom) = GetRectBoundaries(rect);
-            return left <= p.x && p.x <= right && (top < p.y && p.y < bottom);
+            var r1p = GetRectBoundaries(rect);
+            return r1p.left <= p.x && p.x <= r1p.right && (r1p.top < p.y && p.y < r1p.bottom);
         }
 
         // Igaz, ha a két téglalap (r1 és r2) között a távolság egyik tengely
         //  mentén sem nagyobb, mint maxDistance.
         private bool AreClose(XElement r1, XElement r2, double maxDistance)
         {
-            double r1centerx = r1.GetX() + (r1.GetWidth() /2);
+            return (GetDistanceBetweenTwoRect(r1,r2) < maxDistance);
+        }
+
+        private double GetDistanceBetweenTwoRect(XElement r1, XElement r2)
+        {
+            double r1centerx = r1.GetX() + (r1.GetWidth() / 2);
             double r1centery = r1.GetY() + (r1.GetHeight() / 2);
             double r2centerx = r2.GetX() + (r2.GetWidth() / 2);
             double r2centery = r2.GetY() + (r2.GetHeight() / 2);
-            double calculatedDistance = Math.Max(Math.Abs(r1centerx - r2centerx) - (r1.GetWidth() + r2.GetWidth()) / 2, Math.Abs(r1centery - r2centery) - (r1.GetHeight() + r2.GetHeight()) / 2);
-            return (calculatedDistance < maxDistance);
+            return Math.Max(Math.Abs(r1centerx - r2centerx) - (r1.GetWidth() + r2.GetWidth()) / 2, Math.Abs(r1centery - r2centery) - (r1.GetHeight() + r2.GetHeight()) / 2);
         }
 
         // Visszaadja egy téglalap határait. Figyelem! Ha left==2 és width==3,
