@@ -85,17 +85,12 @@ namespace Linq2XmlSvgLab
         #region Group kezelés
         // Adott ID-jú group-ban lévő téglalapok színét sorolja fel.
         internal IEnumerable<string> GetColorsOfRectsInGroup(string id)
-        {      
-            var regex = new Regex("(fill:)([#][a-f0-9]{6});");
-            return Groups
-                .Where(groupID => groupID.Attribute("id").Value
-                .Contains(id))
-                .Select(nodes => nodes.Elements(ns + "rect"))
-                .Select(styleAttribute => styleAttribute.Attributes("style")
-                    .Select(style => style.Value))
-                .Select(styles => styles
-                    .Select(colors => regex.Match(colors).Groups[2].Value))
-                .SelectMany(p => p);
+        {
+            return (from groups in Groups
+                    where groups.GetId().Equals(id)
+                    let rectColors = (from groupnodes in groups.Elements(ns + "rect")
+                                      select groupnodes.GetFillColor())
+                    select rectColors).SelectMany(colors => colors);
         }
         #endregion
 
@@ -104,13 +99,11 @@ namespace Linq2XmlSvgLab
         //  (Olyan rect, aminek a területén van egy szövegnek a kezdőpontja (x,y).)
         internal IEnumerable<XElement> GetRectanglesWithTextInside()
         {
-            /*return (from rects in Rects
-                   let text = (from texts in Texts
-                               where IsInside(rects, (texts.GetX(), texts.GetY())))
-                   select rects)*/
-            return Rects
-                .SelectMany(rects => Texts
-                .Where(texts => IsInside(rects, ((double)texts.Attribute("x"), (double)texts.Attribute("y")))));
+            return (from rects in Rects
+                    where (from texts in Texts
+                           where IsInside(rects, (texts.GetX(), texts.GetY()))
+                           select true).Any()
+                    select rects);
         }
 
         // Adott színű téglalapon belüli szöveg visszaadása.
@@ -124,7 +117,6 @@ namespace Linq2XmlSvgLab
                            where rect.GetFillColor().Contains(color)
                            select rect).Any()
                     select text.Value).SingleOrDefault();
-
         }
 
         // Minden téglalapon kívüli szöveg felsorolása.
@@ -184,13 +176,13 @@ namespace Linq2XmlSvgLab
         internal (double Width, double Height) GetEffectiveWidthAndHeight(int strokeThickness)
         {
             Boundary boundary = new Boundary();
+
             var rectsCollected = ((from rects in Rects
-                                       where rects.Attribute("style").Value.Contains($"stroke-width:{strokeThickness}")
+                                       where rects.IsCorrectStrokeWidth(strokeThickness)
                                        select rects));
+
             foreach(var rects in rectsCollected)
-            {
                 boundary.UpdateToCoverRect(rects);
-            }
 
             return (boundary.Width, boundary.Height);
         }
@@ -223,7 +215,7 @@ namespace Linq2XmlSvgLab
         // A kapott rect magassága legalább kétszer akkora, mint a szélessége?
         private bool IsAtLeastTwiceAsHighAsWide(XElement rect)
         {
-            return (double)rect.Attribute("height") > (double)rect.Attribute("width") * 2;
+            return rect.GetHeight() > rect.GetWidth() * 2;
         }
 
         // A this.Rects attribútumból felsorolja azokat az elemeket, melyek kitöltési színe a megadott szín.
