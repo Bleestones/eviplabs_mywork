@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using System.Globalization;
 
 namespace Linq2XmlSvgLab
 {
@@ -241,11 +238,9 @@ namespace Linq2XmlSvgLab
 
         private double GetDistanceBetweenTwoRect(XElement r1, XElement r2)
         {
-            double r1centerx = r1.GetX() + (r1.GetWidth() / 2);
-            double r1centery = r1.GetY() + (r1.GetHeight() / 2);
-            double r2centerx = r2.GetX() + (r2.GetWidth() / 2);
-            double r2centery = r2.GetY() + (r2.GetHeight() / 2);
-            return Math.Max(Math.Abs(r1centerx - r2centerx) - (r1.GetWidth() + r2.GetWidth()) / 2, Math.Abs(r1centery - r2centery) - (r1.GetHeight() + r2.GetHeight()) / 2);
+            var r1center = (x: (r1.GetX() + (r1.GetWidth() / 2)), y: (r1.GetY() + (r1.GetHeight() / 2)));
+            var r2center = (x: (r2.GetX() + (r2.GetWidth() / 2)), y: (r2.GetY() + (r2.GetHeight() / 2)));
+            return Math.Max(Math.Abs(r1center.x - r2center.x) - (r1.GetWidth() + r2.GetWidth()) / 2, Math.Abs(r1center.y - r2center.y) - (r1.GetHeight() + r2.GetHeight()) / 2);
         }
 
         // Visszaadja egy téglalap határait. Figyelem! Ha left==2 és width==3,
