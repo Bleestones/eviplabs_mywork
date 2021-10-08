@@ -118,5 +118,24 @@ namespace UWP_Basics
                 slider.Value = double.Parse(sliderTextBox.Text);
             }
         }
+
+        private void btn_Click(object sender, RoutedEventArgs e)
+        {
+            Button deleteButton = new Button()
+            {
+                Name = "deleteButton",
+                Content = "Delete me",
+                Width = 100      
+            };
+            deleteButton.Click += Btn_Click; //feliratkozik
+            stackPanel.Children.Add(deleteButton);
+        }
+
+        private void Btn_Click(object sender, RoutedEventArgs e)
+        {
+            stackPanel.Children.Remove((Button)sender);
+            ((Button)sender).Click -= Btn_Click; //Ez enélkül is működik. Mi lesz, ha ez a sor mégsincsen benne?
+            //A feladat megoldásában ezt a részt, hogyan lehet másképpen megcsinálni?
+        }
     }
 }
