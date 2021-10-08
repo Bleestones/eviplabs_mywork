@@ -58,15 +58,15 @@ namespace UWP_Basics
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
-            //Color buttonBrush = (SolidColorBrush)button.Background;
-            //if ((SolidColorBrush)button.Background == Colors.DarkGreen)
-            //{
-            //    button.Background = new SolidColorBrush(Windows.UI.Colors.DarkGreen);
-            //}
-            //else if(buttonBrush == new SolidColorBrush(Windows.UI.Colors.DarkGreen))
-            //{
-            //    button.Background = new SolidColorBrush(Windows.UI.Colors.DarkGray);
-            //}
+            SolidColorBrush buttonBrush = (SolidColorBrush)button.Background;
+            if (buttonBrush.Color == Colors.DarkGray)
+            {
+                button.Background = new SolidColorBrush(Windows.UI.Colors.DarkGreen);
+            }
+            else if(buttonBrush.Color == Colors.DarkGreen)
+            {
+                button.Background = new SolidColorBrush(Windows.UI.Colors.DarkGray);
+            }
             //SetOtherButtonsColor(button.Name.ToString(), button.Background);
         }
 
