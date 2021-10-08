@@ -29,6 +29,18 @@
             <TextBox Name="sliderTextBox" Width="70" TextChanged="sliderTextBox_TextChanged"/>
         </StackPanel>
         <Button Name="btn" Content="Clone" Width="100" Click="btn_Click"/>
+        <Grid x:Name="matrixButtonGrid" Width="150" HorizontalAlignment="Left">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+        </Grid>
     </StackPanel>
 
 </Page>
