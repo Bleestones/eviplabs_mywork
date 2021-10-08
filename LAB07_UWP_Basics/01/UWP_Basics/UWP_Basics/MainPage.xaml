@@ -11,7 +11,13 @@
     <StackPanel x:Name="stackPanel" Orientation="Vertical">
         <Button Name="colorBtn" Content="Color" Width="100" Click="colorBtn_Click" />
         <Button Name="backgroundBtn" Content="Background" Width="100" Click="backgroundBtn_Click" />
-        <Button Name="thirdBtn" Content="Third" Width="100" />
+        <StackPanel x:Name="stackPanelInside" Orientation="Horizontal">
+            <TextBox Name="firstTextBox" Width="70"/>
+            <TextBox Name="seconTextBox" Width="70"/>
+            <TextBlock Name="valueOfTheTwoTextBox" MinWidth="20"/>
+            <Button Name="addOfTwoTextBoxValue" Content="Add" Width="100" Click="addOfTwoTextBoxValue_Click"/>
+            <Button Name="disbaleTheTwoTextBox" Content="Disable" Width="100" Click="disbaleTheTwoTextBox_Click"/>
+        </StackPanel>
     </StackPanel>
 
 </Page>

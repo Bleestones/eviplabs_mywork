@@ -53,5 +53,21 @@ namespace UWP_Basics
                     }
             }
         }
+
+        private void addOfTwoTextBoxValue_Click(object sender, RoutedEventArgs e)
+        {
+            int firstValue;
+            int secondValue;
+            if (Int32.TryParse(firstTextBox.Text, out firstValue) && Int32.TryParse(seconTextBox.Text, out secondValue))
+                valueOfTheTwoTextBox.Text = (firstValue + secondValue).ToString();
+            else
+                valueOfTheTwoTextBox.Text = "Not number!";
+        }
+
+        private void disbaleTheTwoTextBox_Click(object sender, RoutedEventArgs e)
+        {
+            firstTextBox.IsEnabled = false;
+            seconTextBox.IsEnabled = false;
+        }
     }
 }
