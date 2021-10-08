@@ -25,12 +25,33 @@ namespace UWP_Basics
         public MainPage()
         {
             this.InitializeComponent();
+            stackPanel.Background = new SolidColorBrush(Windows.UI.Colors.Black);
         }
 
         private void colorBtn_Click(object sender, RoutedEventArgs e)
         {
             colorBtn.Foreground = new SolidColorBrush(Windows.UI.Colors.Yellow);
             colorBtn.Background = new SolidColorBrush(Windows.UI.Colors.DarkBlue);
+        }
+
+        private byte changed = 0;
+        private void backgroundBtn_Click(object sender, RoutedEventArgs e)
+        {
+            switch (changed)
+            {
+                case 0:
+                    {
+                        stackPanel.Background = new SolidColorBrush(Windows.UI.Colors.DarkOrange);
+                        changed = 1;
+                        break;
+                    }
+                case 1:
+                    {
+                        stackPanel.Background = new SolidColorBrush(Windows.UI.Colors.Black);
+                        changed = 0;
+                        break;
+                    }
+            }
         }
     }
 }

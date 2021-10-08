@@ -8,9 +8,9 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <StackPanel Orientation="Vertical">
+    <StackPanel x:Name="stackPanel" Orientation="Vertical">
         <Button Name="colorBtn" Content="Color" Width="100" Click="colorBtn_Click" />
-        <Button Name="secondBtn" Content="Second" Width="100" />
+        <Button Name="backgroundBtn" Content="Background" Width="100" Click="backgroundBtn_Click" />
         <Button Name="thirdBtn" Content="Third" Width="100" />
     </StackPanel>
 
