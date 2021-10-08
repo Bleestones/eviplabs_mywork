@@ -11,12 +11,22 @@
     <StackPanel x:Name="stackPanel" Orientation="Vertical">
         <Button Name="colorBtn" Content="Color" Width="100" Click="colorBtn_Click" />
         <Button Name="backgroundBtn" Content="Background" Width="100" Click="backgroundBtn_Click" />
-        <StackPanel x:Name="stackPanelInside" Orientation="Horizontal">
+        <StackPanel x:Name="stackPanelInside1" Orientation="Horizontal">
             <TextBox Name="firstTextBox" Width="70"/>
             <TextBox Name="seconTextBox" Width="70"/>
             <TextBlock Name="valueOfTheTwoTextBox" MinWidth="20"/>
             <Button Name="addOfTwoTextBoxValue" Content="Add" Width="100" Click="addOfTwoTextBoxValue_Click"/>
             <Button Name="disbaleTheTwoTextBox" Content="Disable" Width="100" Click="disbaleTheTwoTextBox_Click"/>
+        </StackPanel>
+        <StackPanel x:Name="stackPanelInside2" Orientation="Horizontal">
+            <Button Name="switchButton" Content="Switch" Width="100" Click="switchButton_Click"/>
+            <Rectangle x:Name="firstRectangle" Width="30"/>
+            <Rectangle x:Name="secondRectangle" Width="30"/>
+            <Rectangle x:Name="thirdRectangle" Width="30"/>
+        </StackPanel>
+        <StackPanel x:Name="stackPanelInside3" Orientation="Horizontal">
+            <Slider Name="slider" Width="100" ValueChanged="slider_ValueChanged"/>
+            <TextBox Name="sliderTextBox" Width="70" TextChanged="sliderTextBox_TextChanged"/>
         </StackPanel>
     </StackPanel>
 
