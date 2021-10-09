@@ -49,32 +49,48 @@ namespace LAB07_UWP_Basics
 
         private void Viewport3DX_OnMouse3DDown(object sender, MouseDown3DEventArgs e)
         {
-            throw new NotImplementedException();
+            viewport3DX_IsMouseDown = true;
         }
 
         private void Viewport3DX_OnMouse3DUp(object sender, MouseUp3DEventArgs e)
         {
-            throw new NotImplementedException();
+            viewport3DX_IsMouseDown = false;
         }
 
         private void Viewport3DX_OnMouse3DMove(object sender, MouseMove3DEventArgs e)
         {
             if (prevPos != null && viewport3DX_IsMouseDown)
             {
-
+                pivotItem3D.RotateCamera((float)prevPos.X - (float)e.Position.X, (float)prevPos.Y - (float)e.Position.Y);
             }
             prevPos = e.Position;
-            throw new NotImplementedException();
         }
 
         private void Viewport3DX_KeyDown(Windows.UI.Core.CoreWindow s, Windows.UI.Core.KeyEventArgs e)
         {
             switch (e.VirtualKey)
             {
-                default:
-                    break;
+                case VirtualKey.A:
+                    {
+                        pivotItem3D.RotateCamera(-5, 0);
+                        break;
+                    }
+                case VirtualKey.D:
+                    {
+                        pivotItem3D.RotateCamera(+5, 0);
+                        break;
+                    }
+                case VirtualKey.W:
+                    {
+                        pivotItem3D.RotateCamera(0, -5);
+                        break;
+                    }
+                case VirtualKey.S:
+                    {
+                        pivotItem3D.RotateCamera(0, +5);
+                        break;
+                    }
             }
-            throw new NotImplementedException();
         }
 
         #region Polynomial tab
