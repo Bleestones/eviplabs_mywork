@@ -28,7 +28,9 @@
             <Slider Name="slider" Width="100" ValueChanged="slider_ValueChanged"/>
             <TextBox Name="sliderTextBox" Width="70" TextChanged="sliderTextBox_TextChanged"/>
         </StackPanel>
-        <Button Name="btn" Content="Clone" Width="100" Click="btn_Click"/>
+        <StackPanel Orientation="Vertical" x:Name="deleteBtnPanel">
+            <Button Name="btn" Content="Clone" Width="100" Click="btn_Click"/>
+        </StackPanel>
         <Grid x:Name="matrixButtonGrid" Width="150" HorizontalAlignment="Left">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

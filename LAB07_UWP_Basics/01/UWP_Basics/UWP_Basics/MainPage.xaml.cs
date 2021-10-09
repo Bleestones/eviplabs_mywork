@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Text.RegularExpressions;
 using Windows.UI;
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -67,25 +68,47 @@ namespace UWP_Basics
             {
                 button.Background = new SolidColorBrush(Windows.UI.Colors.DarkGray);
             }
-            //SetOtherButtonsColor(button.Name.ToString(), button.Background);
+            SetOtherButtonsColor(button.Name.ToString());
         }
 
-        private void SetOtherButtonsColor(string getButtonName, Brush buttonColor)
+        private void SetOtherButtonsColor(string getButtonName)
         {
             var indexesOfButton = getButtonIndex(getButtonName);
-            if(buttonColor.Equals(new SolidColorBrush(Windows.UI.Colors.DarkGreen)))
-            {
-                SetButtonColor(Windows.UI.Colors.DarkGray, indexesOfButton);
-            }
-            else
-            {
-                SetButtonColor(Windows.UI.Colors.DarkGreen, indexesOfButton);
-            }
+            SetButtonColor(indexesOfButton);
+            IsAllTheSameColorForWin();
         }
 
-        private void SetButtonColor(Color darkGray, Tuple<int, int> indexesOfButton)
+        private void IsAllTheSameColorForWin()
         {
-            throw new NotImplementedException();
+            Color winnerColor = Colors.DarkGreen;
+            for(int y = 0; y <= buttons.GetUpperBound(1); y++)
+                for(int x = 0; x <= buttons.GetUpperBound(0); x++)
+                {
+                    if (!((SolidColorBrush)buttons[y, x].Background).Color.Equals(winnerColor))
+                        return;
+                }
+            MessageDialog win = new MessageDialog("You won!");
+            win.ShowAsync();
+        }
+
+        private void SetButtonColor(Tuple<int, int> indexesOfButton)
+        {
+            for(int y = 0; y <= buttons.GetUpperBound(1); y++)
+            {
+                for(int x = 0; x <= buttons.GetUpperBound(0); x++)
+                {
+                    if(!(indexesOfButton.Item1.Equals(y) && indexesOfButton.Item2.Equals(x)))
+                    {
+                        if ((indexesOfButton.Item2 == x && (y - indexesOfButton.Item1 == 1 || indexesOfButton.Item1 - y == 1)) || (indexesOfButton.Item1 == y && (x -indexesOfButton.Item2 == 1  || indexesOfButton.Item2 - x == 1)))
+                        {
+                            if(((SolidColorBrush)buttons[y,x].Background).Color == Colors.DarkGreen)
+                                buttons[y, x].Background = new SolidColorBrush(Colors.DarkGray);
+                            else
+                                buttons[y, x].Background = new SolidColorBrush(Colors.DarkGreen);
+                        }
+                    }
+                }
+            }
         }
 
         private Tuple<int, int> getButtonIndex(string buttonName)
@@ -95,7 +118,7 @@ namespace UWP_Basics
                 for(int x = 0; x <= buttons.GetUpperBound(0); x++)
                 {
                     if (buttons[y, x].Name.ToString().Equals(buttonName))
-                        return Tuple.Create(x, y);
+                        return Tuple.Create(y, x);
                 }
             }
             return null;
@@ -199,12 +222,12 @@ namespace UWP_Basics
                 Width = 100
             };
             deleteButton.Click += Btn_Click; //feliratkozik
-            stackPanel.Children.Add(deleteButton);
+            deleteBtnPanel.Children.Add(deleteButton);
         }
 
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
-            stackPanel.Children.Remove((Button)sender);
+            deleteBtnPanel.Children.Remove((Button)sender);
             ((Button)sender).Click -= Btn_Click; //Ez enélkül is működik. Mi lesz, ha ez a sor mégsincsen benne?
             //A feladat megoldásában ezt a részt, hogyan lehet másképpen megcsinálni?
         }
