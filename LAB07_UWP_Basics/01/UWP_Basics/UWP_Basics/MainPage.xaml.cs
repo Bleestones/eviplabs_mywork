@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using System.Text.RegularExpressions;
 using Windows.UI;
 using Windows.UI.Popups;
@@ -50,6 +42,11 @@ namespace UWP_Basics
             return ((SolidColorBrush)solidColor.Background).Color;
         }
 
+        private void SetColor(Control setobject, string colorName)
+        {
+            setobject.Background = colors[colorName];
+        }
+
         private void ButtonMatrixInit()
         {
             for (int y = 0; y <= buttons.GetUpperBound(1); y++)
@@ -76,20 +73,15 @@ namespace UWP_Basics
             Button button = (Button)sender;
             if (GetColor(button) == Colors.DarkGray)
             {
-                button.Background = colors["darkGreen"];
+                SetColor(button, "darkGreen");
             }
             else if(GetColor(button) == Colors.DarkGreen)
             {
-                button.Background = colors["darkGray"];
+                SetColor(button, "darkGray");
             }
-            SetOtherButtonsColor(button.Name.ToString());
-        }
-
-        private void SetOtherButtonsColor(string getButtonName)
-        {
-            var indexesOfButton = getButtonIndex(getButtonName);
-            SetButtonColor(indexesOfButton);
+            SetButtonColor(getButtonIndex(button));
             IsAllTheSameColorForWin();
+
         }
 
         private async void IsAllTheSameColorForWin()
@@ -114,23 +106,23 @@ namespace UWP_Basics
                     {
                         if ((indexesOfButton.Item2 == x && (y - indexesOfButton.Item1 == 1 || indexesOfButton.Item1 - y == 1)) || (indexesOfButton.Item1 == y && (x -indexesOfButton.Item2 == 1  || indexesOfButton.Item2 - x == 1)))
                         {
-                            if (GetColor(buttons[y,x]) == Colors.DarkGreen)
-                                buttons[y, x].Background = colors["darkGray"];
+                            if (GetColor(buttons[y, x]) == Colors.DarkGreen)
+                                SetColor(buttons[y, x], "darkGray");
                             else
-                                buttons[y, x].Background = colors["darkGreen"];
+                                SetColor(buttons[y, x], "darkGreen");
                         }
                     }
                 }
             }
         }
 
-        private Tuple<int, int> getButtonIndex(string buttonName)
+        private Tuple<int, int> getButtonIndex(Button buttonName)
         {
             for(int y = 0; y <= buttons.GetUpperBound(1); y++)
             {
                 for(int x = 0; x <= buttons.GetUpperBound(0); x++)
                 {
-                    if (buttons[y, x].Name.ToString().Equals(buttonName))
+                    if (buttons[y, x].Equals(buttonName))
                         return Tuple.Create(y, x);
                 }
             }
