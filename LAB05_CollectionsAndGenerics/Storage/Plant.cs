@@ -1,29 +1,29 @@
 ﻿
 namespace Storage
-{    public class Game :IStorable
+{
+    public class Plant : IStorable
     {
         public string Title { get; set; }
-        public string Genre { get; set; }
-        public int Year { get; set; }
         public string Id { get; set; }
+        public string Genre { get; set; }
         public int InStock { get; set; }
 
-        public Game(string id,int stock, string title, string genre, int year)
+
+        public Plant(string id, int stock, string title, string genre)
         {
             Title = title;
             Genre = genre;
-            Year = year;
             Id = id;
             InStock = stock;
         }
-        public Game()
+
+        public Plant()
         {
 
         }
-
         public override string ToString()
         {
-            return Id + ": '" + Title + "'(" + Year+") - Available: "+InStock;
+            return Id + ": '" + Title + "' genre " + Genre + " - Available: " + InStock;
         }
     }
 }
