@@ -25,14 +25,29 @@ namespace UWP_Basics
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public Button[,] buttons = new Button[3, 3];
+        private Button[,] buttons = new Button[3, 3];
+        private Dictionary<string, SolidColorBrush> colors = new Dictionary<string, SolidColorBrush>()
+        {
+            {"darkRed" , new SolidColorBrush(Colors.DarkRed)},
+            {"red", new SolidColorBrush(Colors.Red)},
+            {"darkGray", new SolidColorBrush(Colors.DarkGray)},
+            {"darkGreen", new SolidColorBrush(Colors.DarkGreen)},
+            {"yellow", new SolidColorBrush(Colors.Yellow)},
+            {"darkBlue", new SolidColorBrush(Colors.DarkBlue)},
+            {"darkStateBlue", new SolidColorBrush(Colors.DarkSlateBlue)}
+        };
         public MainPage()
         {
             this.InitializeComponent();
-            stackPanel.Background = new SolidColorBrush(Windows.UI.Colors.Black);
-            firstRectangle.Fill = new SolidColorBrush(Windows.UI.Colors.Red);
+            stackPanel.Background = colors["darkRed"];
+            firstRectangle.Fill = colors["red"];
             sliderTextBox.Text = slider.Value.ToString();
             ButtonMatrixInit();
+        }
+
+        private Color GetColor(Control solidColor)
+        {
+            return ((SolidColorBrush)solidColor.Background).Color;
         }
 
         private void ButtonMatrixInit()
@@ -46,7 +61,7 @@ namespace UWP_Basics
                         Name = "matrixButton"+y+x,
                         Width = 150,
                         Content = " ",
-                        Background = new SolidColorBrush(Windows.UI.Colors.DarkGray),
+                        Background = colors["darkGray"]
                     };
                     Grid.SetRow(buttons[y, x], x);
                     Grid.SetColumn(buttons[y, x], y);
@@ -59,14 +74,13 @@ namespace UWP_Basics
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
-            SolidColorBrush buttonBrush = (SolidColorBrush)button.Background;
-            if (buttonBrush.Color == Colors.DarkGray)
+            if (GetColor(button) == Colors.DarkGray)
             {
-                button.Background = new SolidColorBrush(Windows.UI.Colors.DarkGreen);
+                button.Background = colors["darkGreen"];
             }
-            else if(buttonBrush.Color == Colors.DarkGreen)
+            else if(GetColor(button) == Colors.DarkGreen)
             {
-                button.Background = new SolidColorBrush(Windows.UI.Colors.DarkGray);
+                button.Background = colors["darkGray"];
             }
             SetOtherButtonsColor(button.Name.ToString());
         }
@@ -78,17 +92,16 @@ namespace UWP_Basics
             IsAllTheSameColorForWin();
         }
 
-        private void IsAllTheSameColorForWin()
+        private async void IsAllTheSameColorForWin()
         {
-            Color winnerColor = Colors.DarkGreen;
             for(int y = 0; y <= buttons.GetUpperBound(1); y++)
                 for(int x = 0; x <= buttons.GetUpperBound(0); x++)
                 {
-                    if (!((SolidColorBrush)buttons[y, x].Background).Color.Equals(winnerColor))
+                    if(GetColor(buttons[y,x]) != Colors.DarkGreen)
                         return;
                 }
             MessageDialog win = new MessageDialog("You won!");
-            win.ShowAsync();
+           await win.ShowAsync();
         }
 
         private void SetButtonColor(Tuple<int, int> indexesOfButton)
@@ -101,10 +114,10 @@ namespace UWP_Basics
                     {
                         if ((indexesOfButton.Item2 == x && (y - indexesOfButton.Item1 == 1 || indexesOfButton.Item1 - y == 1)) || (indexesOfButton.Item1 == y && (x -indexesOfButton.Item2 == 1  || indexesOfButton.Item2 - x == 1)))
                         {
-                            if(((SolidColorBrush)buttons[y,x].Background).Color == Colors.DarkGreen)
-                                buttons[y, x].Background = new SolidColorBrush(Colors.DarkGray);
+                            if (GetColor(buttons[y,x]) == Colors.DarkGreen)
+                                buttons[y, x].Background = colors["darkGray"];
                             else
-                                buttons[y, x].Background = new SolidColorBrush(Colors.DarkGreen);
+                                buttons[y, x].Background = colors["darkGreen"];
                         }
                     }
                 }
@@ -127,8 +140,8 @@ namespace UWP_Basics
 
         private void colorBtn_Click(object sender, RoutedEventArgs e)
         {
-            colorBtn.Foreground = new SolidColorBrush(Windows.UI.Colors.Yellow);
-            colorBtn.Background = new SolidColorBrush(Windows.UI.Colors.DarkBlue);
+            colorBtn.Foreground = colors["yellow"];
+            colorBtn.Background = colors["darkBlue"];
         }
 
         private byte changed = 0;
@@ -138,13 +151,13 @@ namespace UWP_Basics
             {
                 case 0:
                     {
-                        stackPanel.Background = new SolidColorBrush(Windows.UI.Colors.DarkSlateBlue);
+                        stackPanel.Background = colors["darkStateBlue"];
                         changed = 1;
                         break;
                     }
                 case 1:
                     {
-                        stackPanel.Background = new SolidColorBrush(Windows.UI.Colors.Black);
+                        stackPanel.Background = colors["darkRed"];
                         changed = 0;
                         break;
                     }
@@ -174,22 +187,22 @@ namespace UWP_Basics
             {
                 case 1:
                     {
-                        firstRectangle.Fill = new SolidColorBrush(Windows.UI.Colors.Red);
-                        thirdRectangle.Fill = new SolidColorBrush(Windows.UI.Colors.Black);
+                        firstRectangle.Fill = colors["red"];
+                        thirdRectangle.Fill = colors["darkRed"];
                         rectangleColorSwitch++;
                         break;
                     }
                 case 2:
                     {
-                        firstRectangle.Fill = new SolidColorBrush(Windows.UI.Colors.Black);
-                        secondRectangle.Fill = new SolidColorBrush(Windows.UI.Colors.Red);
+                        firstRectangle.Fill = colors["darkRed"];
+                        secondRectangle.Fill = colors["red"];
                         rectangleColorSwitch++;
                         break;
                     }
                 case 3:
                     {
-                        secondRectangle.Fill = new SolidColorBrush(Windows.UI.Colors.Black);
-                        thirdRectangle.Fill = new SolidColorBrush(Windows.UI.Colors.Red);
+                        secondRectangle.Fill = colors["darkRed"];
+                        thirdRectangle.Fill = colors["red"];
                         rectangleColorSwitch = 1;
                         break;
                     }
