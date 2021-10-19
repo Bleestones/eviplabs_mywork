@@ -13,11 +13,17 @@ namespace Common
         }
         public IEnumerable<string> GenerateTexts()
         {
-            for(int i = 0; i < N; i++)
+            int needvalue = 0;
+            int i = 1;
+            while(needvalue < N)
             {
                 int gyok = (int)Math.Sqrt(i);
                 if (gyok * gyok == i)
+                {
                     yield return $"Az {i} négyzetszám";
+                    needvalue++;
+                }
+                i++;
             }
         }
     }
