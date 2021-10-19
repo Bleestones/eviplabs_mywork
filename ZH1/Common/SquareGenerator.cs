@@ -6,7 +6,7 @@ namespace Common
 {
     public class SquareGenerator : ITextSequenceSource
     {
-        private int N;
+        private readonly int N;
         public SquareGenerator(int N)
         {
             this.N = N;
