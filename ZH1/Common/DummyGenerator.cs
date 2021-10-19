@@ -7,10 +7,8 @@ namespace Common
         public int N { get; set; }
         public IEnumerable<string> GenerateTexts()
         {
-            for(int i = 0; i < N; i++)
-            {
+            for (int i = 0; i < N; i++)
                 yield return "dummy";
-            }
         }
     }
 }
