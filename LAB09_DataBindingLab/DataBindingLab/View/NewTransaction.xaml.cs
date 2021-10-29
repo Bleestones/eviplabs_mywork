@@ -1,12 +1,15 @@
 ﻿using DataBindingLab.Model;
+using System.ComponentModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace DataBindingLab.View
 {
-    public sealed partial class NewTransaction : UserControl
+    public sealed partial class NewTransaction : UserControl, INotifyPropertyChanged
     {
         private TransactionList transactions;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public CategoryList Categories { get; set; }
 
@@ -35,6 +38,11 @@ namespace DataBindingLab.View
                 Description = Description,
                 Value = Value
             });
+
+            this.Description = "";
+            this.Value = 0;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Description)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Value)));
         }
     }
 }

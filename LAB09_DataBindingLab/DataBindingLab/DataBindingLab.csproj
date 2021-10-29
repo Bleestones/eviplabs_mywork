@@ -128,6 +128,7 @@
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Model\TransactionList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\Bool2VisibilityConverter.cs" />
     <Compile Include="ViewModel\IsExpense2ColorConverter.cs" />
     <Compile Include="Model\ObservableObjectBase.cs" />
     <Compile Include="ViewModel\SummaryListItemViewModel.cs" />
