@@ -17,5 +17,14 @@
     <StackPanel BorderThickness="1" BorderBrush="Black" Padding="5"
                 Background="Gray" MinWidth="300">
         <TextBlock Text="List of transactions:" />
+        <ItemsControl ItemsSource="{x:Bind List}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="vm:SummaryListItemViewModel">
+                    <StackPanel>
+                        <TextBlock Text="{x:Bind Summary, Mode=OneWay}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </StackPanel>
 </UserControl>
