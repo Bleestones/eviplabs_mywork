@@ -29,6 +29,12 @@ namespace DataBindingLab.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            transactions.Add(new DataBindingLab.Model.Transaction()
+            {
+                Category = Categories[SelectedCategoryIndex],
+                Description = Description,
+                Value = Value
+            });
         }
     }
 }
