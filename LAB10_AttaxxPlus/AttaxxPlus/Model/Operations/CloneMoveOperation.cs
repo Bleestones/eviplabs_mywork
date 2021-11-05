@@ -17,7 +17,7 @@ namespace AttaxxPlus.Model.Operations
             // EVIP: IsEmpty() is more descriptive than "Owner == 0"
             int soreredmeny = Math.Abs(selectedField.Row - currentField.Row);
             int oszloperedmeny = Math.Abs(selectedField.Column - currentField.Column);
-            if (soreredmeny + oszloperedmeny == 1 || (oszloperedmeny == 1 && soreredmeny == 1)
+            if (soreredmeny + oszloperedmeny == 1 || oszloperedmeny == 1 && soreredmeny == 1
                 && !selectedField.IsEmpty()
                 && currentField.IsEmpty())
             {
