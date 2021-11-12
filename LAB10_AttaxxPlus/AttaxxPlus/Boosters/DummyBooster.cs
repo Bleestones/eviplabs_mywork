@@ -11,6 +11,7 @@ namespace AttaxxPlus.Boosters
     {
         // How many times can the user activate this booster
         private int usableCounter = 2;
+        private int[] dummyCounters = new int[3] { 2, 2, 2 };
 
         // EVIP: overriding abstract property in base class.
         public override string Title { get => $"Dummy ({usableCounter})"; }
@@ -28,7 +29,9 @@ namespace AttaxxPlus.Boosters
         protected override void CurrentPlayerChanged()
         {
             base.CurrentPlayerChanged();
+            this.usableCounter = dummyCounters[base.GameViewModel.CurrentPlayer];
             Notify(nameof(this.Title));
+            Notify(nameof(this.usableCounter));
         }
 
         public override void InitializeGame()
@@ -39,13 +42,13 @@ namespace AttaxxPlus.Boosters
         public override bool TryExecute(Field selectedField, Field currentField)
         {
             // Note: if you need a player-dependent counter, use this.GameViewModel.CurrentPlayer.
-            if (usableCounter > 0)
+            if (dummyCounters[base.GameViewModel.CurrentPlayer] > 0)
             {
-                usableCounter--;
+                dummyCounters[base.GameViewModel.CurrentPlayer]--;
                 Notify(nameof(Title));
                 return true;
             }
-            return true;
+            return false;
         }
     }
 }
