@@ -44,7 +44,7 @@ namespace ThreadingLab
             {
                 for (int i = 0; i <= 100; i += 10)
                 {
-                    await Task.Delay(500);
+                    Task.Delay(500).Wait();
                     progress.Report(i);
                     eventList.Items.Add($"SlowBackgroundProcessor <PJYRWJ> is at {i}percent.");
                 }
