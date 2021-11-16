@@ -22,7 +22,7 @@ namespace ThreadingLab
         {
         }
 
-        private async Task Start_ClickAsync(object sender, RoutedEventArgs e)
+        private async void Start_ClickAsync(object sender, RoutedEventArgs e)
         {
             EventList.Items.Add("Start clicked");
             var progressReporter = new Progress<int>(percent => this.ProgressBar.Value = percent);
@@ -46,6 +46,7 @@ namespace ThreadingLab
                 {
                     await Task.Delay(500);
                     progress.Report(i);
+                    eventList.Items.Add($"SlowBackgroundProcessor <PJYRWJ> is at {i}percent.");
                 }
             }
         }
