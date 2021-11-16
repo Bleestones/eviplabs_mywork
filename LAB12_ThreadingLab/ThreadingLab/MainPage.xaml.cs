@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -27,7 +28,7 @@ namespace ThreadingLab
             EventList.Items.Add("Start clicked");
             var progressReporter = new Progress<int>(percent => this.ProgressBar.Value = percent);
             var slowBackgroundProcessor = new SlowBackgroundProcessor(this.EventList);
-            await slowBackgroundProcessor.DoItAsync(progressReporter);
+            await Task.Run(() => slowBackgroundProcessor.DoItAsync(progressReporter));
             EventList.Items.Add("Start finished");
         }
 
@@ -46,7 +47,10 @@ namespace ThreadingLab
                 {
                     Task.Delay(500).Wait();
                     progress.Report(i);
-                    eventList.Items.Add($"SlowBackgroundProcessor <PJYRWJ> is at {i}percent.");
+                    await eventList.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        eventList.Items.Add($"SlowBackgroundProcessor <PJYRWJ> is at {i}percent.");
+                    });
                 }
             }
         }
