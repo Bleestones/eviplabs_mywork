@@ -27,8 +27,11 @@ namespace ThreadingLab
         {
             EventList.Items.Add("Start clicked");
             var progressReporter = new Progress<int>(percent => this.ProgressBar.Value = percent);
-            var slowBackgroundProcessor = new SlowBackgroundProcessor(this.EventList);
-            await Task.Run(() => slowBackgroundProcessor.DoItAsync(progressReporter));
+            var progressReporter2 = new Progress<int>(percent => this.ProgressBar2.Value = percent);
+            var slowBackgroundProcessor1 = new SlowBackgroundProcessor(this.EventList);
+            var slowBackgroundProcessor2 = new SlowBackgroundProcessor(null);
+            await Task.Run(() => slowBackgroundProcessor1.DoItAsync(progressReporter));
+            await Task.Run(() => slowBackgroundProcessor2.DoItAsync(progressReporter2));
             EventList.Items.Add("Start finished");
         }
 
@@ -47,10 +50,13 @@ namespace ThreadingLab
                 {
                     Task.Delay(500).Wait();
                     progress.Report(i);
-                    await eventList.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    if (eventList != null)
                     {
-                        eventList.Items.Add($"SlowBackgroundProcessor <PJYRWJ> is at {i}percent.");
-                    });
+                        await eventList.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                        {
+                            eventList.Items.Add($"SlowBackgroundProcessor <PJYRWJ> is at {i}percent.");
+                        });
+                    }
                 }
             }
         }
