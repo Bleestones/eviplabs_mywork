@@ -30,8 +30,7 @@ namespace ThreadingLab
             var progressReporter2 = new Progress<int>(percent => this.ProgressBar2.Value = percent);
             var slowBackgroundProcessor1 = new SlowBackgroundProcessor(this.EventList);
             var slowBackgroundProcessor2 = new SlowBackgroundProcessor(null);
-            await Task.Run(() => slowBackgroundProcessor1.DoItAsync(progressReporter));
-            await Task.Run(() => slowBackgroundProcessor2.DoItAsync(progressReporter2));
+            await Task.Run(() => slowBackgroundProcessor1.DoItAsync(progressReporter).ContinueWith(sbp2 => slowBackgroundProcessor2.DoItAsync(progressReporter2)));
             EventList.Items.Add("Start finished");
         }
 
