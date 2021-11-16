@@ -22,12 +22,12 @@ namespace ThreadingLab
         {
         }
 
-        private void Start_Click(object sender, RoutedEventArgs e)
+        private async Task Start_ClickAsync(object sender, RoutedEventArgs e)
         {
             EventList.Items.Add("Start clicked");
             var progressReporter = new Progress<int>(percent => this.ProgressBar.Value = percent);
             var slowBackgroundProcessor = new SlowBackgroundProcessor(this.EventList);
-            slowBackgroundProcessor.DoIt(progressReporter);
+            await slowBackgroundProcessor.DoItAsync(progressReporter);
             EventList.Items.Add("Start finished");
         }
 
@@ -40,11 +40,11 @@ namespace ThreadingLab
                 this.eventList = eventList;
             }
 
-            public void DoIt(IProgress<int> progress)
+            public async Task DoItAsync(IProgress<int> progress)
             {
                 for (int i = 0; i <= 100; i += 10)
                 {
-                    Task.Delay(500).Wait();
+                    await Task.Delay(500);
                     progress.Report(i);
                 }
             }
