@@ -23,6 +23,7 @@ namespace ThreadingLab
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             cancellationTokenSource.Cancel(true);
+            cancellationTokenSource.Dispose();
         }
 
         private async void Start_ClickAsync(object sender, RoutedEventArgs e)
