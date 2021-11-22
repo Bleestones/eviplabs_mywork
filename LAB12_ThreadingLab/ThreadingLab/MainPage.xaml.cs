@@ -22,8 +22,15 @@ namespace ThreadingLab
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            cancellationTokenSource.Cancel(true);
-            cancellationTokenSource.Dispose();
+            try
+            {
+                cancellationTokenSource.Cancel(true);
+                cancellationTokenSource.Dispose();
+            }
+            catch(ObjectDisposedException)
+            {
+                EventList.Items.Add("Process already cancelled!");
+            }
         }
 
         private async void Start_ClickAsync(object sender, RoutedEventArgs e)
