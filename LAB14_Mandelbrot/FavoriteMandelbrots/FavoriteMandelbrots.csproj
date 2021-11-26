@@ -130,6 +130,7 @@
     <Compile Include="ViewModel\AreaViewModel.cs" />
     <Compile Include="ViewModel\CommandBase.cs" />
     <Compile Include="ViewModel\MainViewerViewModel.cs" />
+    <Compile Include="ViewModel\RemoveFavoriteCommand.cs" />
     <Compile Include="ViewModel\RerenderImageCommand.cs" />
     <Compile Include="ViewModel\SaveFavoritesCommand.cs" />
     <Compile Include="ViewModel\UpdateFavoriteCommand.cs" />

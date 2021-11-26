@@ -34,6 +34,7 @@ namespace FavoriteMandelbrots.ViewModel
         public UpdateFavoriteCommand UpdateFavoriteCommand { get; set; }
         public SaveFavoritesCommand SaveFavoritesCommand { get; set; }
         public AddFavoritesFromFileCommand AddFavoritesFromFileCommand { get; set; }
+        public RemoveFavoriteCommand RemoveFavoriteCommand { get; set; }
         #endregion
 
         public MainViewerViewModel(MainViewer viewer)
@@ -46,6 +47,7 @@ namespace FavoriteMandelbrots.ViewModel
 
             // Create remaining parts of view model
             AddToFavoritesCommand = new AddToFavoritesCommand(this);
+            RemoveFavoriteCommand = new RemoveFavoriteCommand(this);
             UpdateFavoriteCommand = new UpdateFavoriteCommand(this);
             RerenderImageCommand = new RerenderImageCommand(this);
             SaveFavoritesCommand = new SaveFavoritesCommand(this);

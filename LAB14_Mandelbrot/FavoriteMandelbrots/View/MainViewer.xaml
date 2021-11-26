@@ -72,6 +72,15 @@
                         <KeyboardAccelerator Key="S" Modifiers="Control"/>
                     </Button.KeyboardAccelerators>
                 </Button>
+                <Button HorizontalAlignment="Stretch"
+                    Command="{x:Bind viewModel.RemoveFavoriteCommand}"
+                    CommandParameter="{x:Bind FavoritesList.SelectedItem, Mode=OneWay}"
+                    Content="Remove favorites..."
+                    ToolTipService.ToolTip="Save favorites to a file, shortcut: Ctrl+R">
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="R" Modifiers="Control"/>
+                    </Button.KeyboardAccelerators>
+                </Button>
             </StackPanel>
             <StackPanel BorderBrush="DarkGray" BorderThickness="1" Width="400">
                 <TextBlock Text="Shown window:"/>
