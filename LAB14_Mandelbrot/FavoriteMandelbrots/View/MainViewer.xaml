@@ -34,10 +34,16 @@
                 <Button HorizontalAlignment="Stretch"
                     Command="{x:Bind viewModel.RerenderImageCommand}"
                     Content="Re-render image (R)">
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="R"/>
+                    </Button.KeyboardAccelerators>
                 </Button>
                 <Button HorizontalAlignment="Stretch"
                     Command="{x:Bind viewModel.AddToFavoritesCommand}"
                     Content="Add to favorites (A)">
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="A"/>
+                    </Button.KeyboardAccelerators>
                 </Button>
                 <Button HorizontalAlignment="Stretch"
                     Command="{x:Bind viewModel.UpdateFavoriteCommand}"
@@ -45,10 +51,19 @@
                     Content="Update current favorite"/>
                 <Button HorizontalAlignment="Stretch"
                     Command="{x:Bind viewModel.AddFavoritesFromFileCommand}"
-                    Content="Add favorites from file..."/>
+                    AccessKey="A"
+                    Content="Add favorites from file...">
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="F"/>
+                    </Button.KeyboardAccelerators>
+                </Button>
                 <Button HorizontalAlignment="Stretch"
                     Command="{x:Bind viewModel.SaveFavoritesCommand}"
-                    Content="Save favorites..."/>
+                    Content="Save favorites...">
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="S"/>
+                    </Button.KeyboardAccelerators>
+                </Button>
             </StackPanel>
             <StackPanel BorderBrush="DarkGray" BorderThickness="1" Width="400">
                 <TextBlock Text="Shown window:"/>
