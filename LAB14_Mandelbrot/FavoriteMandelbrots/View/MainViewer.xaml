@@ -100,6 +100,7 @@
                                 BorderThickness="1" Spacing="10">
                         <Button Content="Show" VerticalAlignment="Stretch"
                                 Command="{x:Bind ShowCommand}"/>
+                        <Image Source="{x:Bind Thumbnail}" Width="50px" Height="50px"/>
                         <TextBlock Text="{x:Bind AsString, Mode=OneWay}"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
