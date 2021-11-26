@@ -77,7 +77,7 @@ namespace FavoriteMandelbrots.Model
         #endregion
 
         // EVIP: Getter-only property and string interpolation
-        public string AsString => $"{left:G4}+i{top:G4} - {right:G4}+i{bottom:G4}";
+        public string AsString => $"({left:G4})+({top:G4}i) - ({right:G4})+({bottom:G4}i)";
 
         public WriteableBitmap Render(int width, int height)
         {
