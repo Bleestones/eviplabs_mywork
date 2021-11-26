@@ -32,6 +32,10 @@
             <StackPanel Width="400"
                         BorderBrush="DarkGray" BorderThickness="1" Spacing="2">
                 <Button HorizontalAlignment="Stretch"
+                    Command="{x:Bind viewModel.RerenderImageCommand}"
+                    Content="Re-render image (R)">
+                </Button>
+                <Button HorizontalAlignment="Stretch"
                     Command="{x:Bind viewModel.AddToFavoritesCommand}"
                     Content="Add to favorites (A)">
                 </Button>
@@ -39,10 +43,6 @@
                     Command="{x:Bind viewModel.UpdateFavoriteCommand}"
                     CommandParameter="{x:Bind FavoritesList.SelectedItem, Mode=OneWay}"
                     Content="Update current favorite"/>
-                <Button HorizontalAlignment="Stretch"
-                    Command="{x:Bind viewModel.RerenderImageCommand}"
-                    Content="Re-render image (R)">
-                </Button>
                 <Button HorizontalAlignment="Stretch"
                     Command="{x:Bind viewModel.AddFavoritesFromFileCommand}"
                     Content="Add favorites from file..."/>
