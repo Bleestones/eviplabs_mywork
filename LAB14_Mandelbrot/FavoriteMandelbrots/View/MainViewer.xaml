@@ -32,23 +32,55 @@
             <StackPanel Width="400"
                         BorderBrush="DarkGray" BorderThickness="1" Spacing="2">
                 <Button HorizontalAlignment="Stretch"
+                    Command="{x:Bind viewModel.RerenderImageCommand}"
+                    Content="Re-render image (R)"
+                    ToolTipService.ToolTip="Re-renders the main view, shortcut: R">
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="R"/>
+                    </Button.KeyboardAccelerators>
+                </Button>
+                <Button HorizontalAlignment="Stretch"
                     Command="{x:Bind viewModel.AddToFavoritesCommand}"
-                    Content="Add to favorites (A)">
+                    Content="Add to favorites (A)"
+                    ToolTipService.ToolTip="Add rendered view to favorite, shortcut: A">
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="A"/>
+                    </Button.KeyboardAccelerators>
                 </Button>
                 <Button HorizontalAlignment="Stretch"
                     Command="{x:Bind viewModel.UpdateFavoriteCommand}"
                     CommandParameter="{x:Bind FavoritesList.SelectedItem, Mode=OneWay}"
-                    Content="Update current favorite"/>
-                <Button HorizontalAlignment="Stretch"
-                    Command="{x:Bind viewModel.RerenderImageCommand}"
-                    Content="Re-render image (R)">
+                    Content="Update current favorite"
+                    ToolTipService.ToolTip="Updates, the current selected Favorite: U">
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="U"/>
+                    </Button.KeyboardAccelerators>
                 </Button>
                 <Button HorizontalAlignment="Stretch"
                     Command="{x:Bind viewModel.AddFavoritesFromFileCommand}"
-                    Content="Add favorites from file..."/>
+                    Content="Add favorites from file..."
+                    ToolTipService.ToolTip="Add favorites from file, shortcut: Ctrl+A">
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="A" Modifiers="Control"/>
+                    </Button.KeyboardAccelerators>
+                </Button>
                 <Button HorizontalAlignment="Stretch"
                     Command="{x:Bind viewModel.SaveFavoritesCommand}"
-                    Content="Save favorites..."/>
+                    Content="Save favorites..."
+                    ToolTipService.ToolTip="Save favorites to a file, shortcut: Ctrl+S">
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="S" Modifiers="Control"/>
+                    </Button.KeyboardAccelerators>
+                </Button>
+                <Button HorizontalAlignment="Stretch"
+                    Command="{x:Bind viewModel.RemoveFavoriteCommand}"
+                    CommandParameter="{x:Bind FavoritesList.SelectedItem, Mode=OneWay}"
+                    Content="Remove favorites..."
+                    ToolTipService.ToolTip="Save favorites to a file, shortcut: Ctrl+R">
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="R" Modifiers="Control"/>
+                    </Button.KeyboardAccelerators>
+                </Button>
             </StackPanel>
             <StackPanel BorderBrush="DarkGray" BorderThickness="1" Width="400">
                 <TextBlock Text="Shown window:"/>
@@ -77,6 +109,7 @@
                                 BorderThickness="1" Spacing="10">
                         <Button Content="Show" VerticalAlignment="Stretch"
                                 Command="{x:Bind ShowCommand}"/>
+                        <Image Source="{x:Bind Thumbnail}" Width="50px" Height="50px"/>
                         <TextBlock Text="{x:Bind AsString, Mode=OneWay}"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
