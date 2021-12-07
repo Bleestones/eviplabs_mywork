@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
@@ -11,6 +7,7 @@ namespace ZH2
 {
     public class ButtonCommand : ICommand
     {
+        private readonly SolidColorBrush colorGreen = new SolidColorBrush(Colors.Green);
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter) => true;
@@ -20,7 +17,7 @@ namespace ZH2
             DataModel dataModel = (DataModel)parameter;
             if(dataModel.ColorChangeEnabled)
             {
-                dataModel.FillBrush = new SolidColorBrush(Colors.Green);
+                dataModel.FillBrush = colorGreen;
             }
         }
     }
