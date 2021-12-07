@@ -1,0 +1,16 @@
+﻿<Page
+    x:Class="ZH2.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZH2"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <StackPanel>
+        <CheckBox IsChecked="{x:Bind DataModel.ColorChangeEnabled, Mode=TwoWay}">Nyomógomb engedélyezve</CheckBox>
+        <Button Command="{x:Bind ButtonCommand}" CommandParameter="{x:Bind DataModel, Mode=OneWay}">Mehet!</Button>
+        <Rectangle Width="65" Height="50" HorizontalAlignment="Left" Fill="{x:Bind DataModel.FillBrush,Mode=OneWay}"></Rectangle>
+    </StackPanel>
+</Page>
