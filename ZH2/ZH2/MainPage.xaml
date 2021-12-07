@@ -9,8 +9,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <StackPanel>
-        <CheckBox></CheckBox>
-        <Button></Button>
-        <Rectangle Width="100" Height="100" HorizontalAlignment="Left"></Rectangle>
+        <CheckBox IsChecked="{x:Bind DataModel.ColorChangeEnabled, Mode=TwoWay}">Nyomógomb engedélyezve</CheckBox>
+        <Button Command="{x:Bind ButtonCommand}" CommandParameter="{x:Bind DataModel, Mode=OneWay}">Mehet!</Button>
+        <Rectangle Width="100" Height="100" HorizontalAlignment="Left" Fill="{x:Bind DataModel.FillBrush,Mode=OneWay}"></Rectangle>
     </StackPanel>
 </Page>

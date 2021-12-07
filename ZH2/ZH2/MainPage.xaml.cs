@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,9 +23,14 @@ namespace ZH2
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public DataModel DataModel { get; set; }
+        public ButtonCommand ButtonCommand { get; set; }
         public MainPage()
         {
             this.InitializeComponent();
+            DataModel = new DataModel();
+            ButtonCommand = new ButtonCommand();
+            DataModel.FillBrush = new SolidColorBrush(Colors.Yellow);
         }
     }
 }
