@@ -1,4 +1,4 @@
-# EViP - Eseményvezérelt és Vizuális Programozás (VIAUBB01)
+# EViP - Eseményvezérelt és Vizuális Programozás (VIAUBB01) VÉGE
 
 Erről a repositoryról készülnek a hallgatói személyes másolatok a classroom.github.com segítségével.
 A repository private, a tárgy oktatóin kívül más nem láthatja.
